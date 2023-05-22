@@ -5,7 +5,7 @@
   align-items: center;
 }
 
-mat-card{
+.mat-mdc-card{
   width: 100%;
   max-width: 300px;
 }
