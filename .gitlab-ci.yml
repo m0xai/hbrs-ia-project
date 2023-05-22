@@ -5,7 +5,7 @@ stages:
   - deploy
 
 variables:
-  ANGULAR_CLI_VERSION: 13.3.9
+  ANGULAR_CLI_VERSION: 16.0.2
   NODE_VERSION: 18
 
 .backend_rules:
@@ -25,7 +25,7 @@ variables:
 .node:
   image: node:${NODE_VERSION}-alpine
   before_script:
-    - npm config set registry http://sepp-nexus.inf.h-brs.de:8081/repository/npm/
+    - npm config set registry http://sepp-nexus.inf.h-brs.de/repository/npm/
 
 install-dependencies:backend:
   extends: .node
