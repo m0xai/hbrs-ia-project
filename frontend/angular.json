@@ -37,11 +37,11 @@
                 }
               ],
               "optimization": {
-                  "scripts": true,
-                  "styles": true,
-                  "fonts": {
-                      "inline": false
-                  }
+                "scripts": true,
+                "styles": true,
+                "fonts": {
+                  "inline": false
+                }
               },
               "outputHashing": "all",
               "sourceMap": false,
@@ -127,8 +127,9 @@
       }
     }
   },
-  "defaultProject": "app",
   "cli": {
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }
