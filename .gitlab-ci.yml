@@ -25,7 +25,7 @@ variables:
 .node:
   image: node:${NODE_VERSION}-alpine
   before_script:
-    - npm config set registry http://sepp-nexus.inf.h-brs.de/repository/npm/
+    - npm config set registry https://sepp-nexus.inf.h-brs.de/repository/npm/
 
 install-dependencies:backend:
   extends: .node
@@ -75,6 +75,8 @@ deploy:backend:
   variables:
     HTTP_PROXY: "http://www-cache:8080"
     HTTPS_PROXY: "http://www-cache:8080"
+    http_proxy: "http://www-cache:8080"
+    https_proxy: "http://www-cache:8080"
   rules:
     - !reference [ .backend_rules, rules ]
   needs:
@@ -187,6 +189,8 @@ deploy:frontend:
   variables:
     HTTP_PROXY: "http://www-cache:8080"
     HTTPS_PROXY: "http://www-cache:8080"
+    http_proxy: "http://www-cache:8080"
+    https_proxy: "http://www-cache:8080"
   rules:
     - !reference [ .frontend_rules, rules ]
   needs:
