@@ -17,4 +17,7 @@ router.get('/user', checkAuthorization(), userApi.getSelf);
 const peopleDemoApi = require('../apis/people-demo-api');
 router.get('/people', checkAuthorization(), peopleDemoApi.getPeople);
 
+const openCRMApi = require("../apis/opencrx-api")
+router.get("/accounts", openCRMApi.getAccounts)
+
 module.exports = router;
