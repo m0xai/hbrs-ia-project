@@ -2,8 +2,8 @@ const employeeService = require('../services/employee-service');
 
 exports.get = function(req, res) {
   const db = req.app.get('db');
-  employeeService.get(db, req.params.employeeId).then(employee => {
-      console.log(employee);
+  //! Employee ID as param accessible, but can't find one in collection
+  employeeService.get(db, req.body._id).then(employee => {
       res.send(employee);
     }
   );

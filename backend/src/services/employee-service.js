@@ -1,5 +1,5 @@
 exports.get = async function(db, id) {
-  return await db.collection("employees").findONe({ id: id})
+  return await db.collection("employees").findOne({ id: id })
 }
 
 exports.list = async function(db, filters) {
