@@ -22,6 +22,7 @@ router.get('/accounts', openCRMApi.getAccounts);
 
 const employeeApi = require("../apis/employee-api")
 router.get("/employees/:employeeId", employeeApi.get)
+router.get("/employees", employeeApi.list)
 router.post("/employees", employeeApi.create)
 
 module.exports = router;

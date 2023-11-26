@@ -18,3 +18,12 @@ exports.create = function(req, res) {
     res.send(employee)
   })
 }
+
+exports.list = function(req, res) {
+  const db = req.app.get("db")
+
+  employeeService.list(db).then(employeeList => {
+    console.log(employeeList);
+    res.send(employeeList)
+  })
+}
