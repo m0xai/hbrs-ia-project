@@ -1,14 +1,14 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view='lHh Lpr lFf'>
     <q-header elevated>
       <q-toolbar>
         <q-btn
-          flat
+          aria-label='Menu'
           dense
+          flat
+          icon='menu'
           round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
+          @click='toggleLeftDrawer'
         />
 
         <q-toolbar-title>
@@ -20,9 +20,9 @@
     </q-header>
 
     <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
+      v-model='leftDrawerOpen'
       bordered
+      show-if-above
     >
       <q-list>
         <q-item-label
@@ -32,9 +32,9 @@
         </q-item-label>
 
         <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
+          v-for='link in essentialLinks'
+          :key='link.title'
+          v-bind='link'
         />
       </q-list>
     </q-drawer>
@@ -45,7 +45,7 @@
   </q-layout>
 </template>
 
-<script setup lang="ts">
+<script lang='ts' setup>
 import { ref } from 'vue';
 import EssentialLink, { EssentialLinkProps } from 'components/EssentialLink.vue';
 
@@ -94,9 +94,9 @@ const essentialLinks: EssentialLinkProps[] = [
   }
 ];
 
-const leftDrawerOpen = ref(false)
+const leftDrawerOpen = ref(false);
 
 function toggleLeftDrawer() {
-  leftDrawerOpen.value = !leftDrawerOpen.value
+  leftDrawerOpen.value = !leftDrawerOpen.value;
 }
 </script>

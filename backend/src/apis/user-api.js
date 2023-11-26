@@ -4,6 +4,6 @@
  * @param res express response
  * @return {Promise<void>}
  */
-exports.getSelf = async function(req, res){
-    res.send(req.session.user); //retrieve userdata of authenticated user from session and return it
-}
+exports.getSelf = async function(req, res) {
+  res.send(req.session.user); //retrieve userdata of authenticated user from session and return it
+};

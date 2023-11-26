@@ -1,16 +1,16 @@
 <template>
-  <q-page class="row items-center justify-evenly">
+  <q-page class='row items-center justify-evenly'>
     <example-component
-      title="Example component"
+      :meta='meta'
+      :todos='todos'
       active
-      :todos="todos"
-      :meta="meta"
+      title='Example component'
     ></example-component>
   </q-page>
 </template>
 
-<script setup lang="ts">
-import { Todo, Meta } from 'components/models';
+<script lang='ts' setup>
+import { Meta, Todo } from 'components/models';
 import ExampleComponent from 'components/ExampleComponent.vue';
 import { ref } from 'vue';
 

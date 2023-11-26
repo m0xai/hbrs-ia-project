@@ -11,7 +11,8 @@ const environment = {
         name: 'intArch'
     },
     corsOrigins: [
-        'http://localhost:4200'
+        'http://localhost:4200',
+        'http://localhost:9000'
     ]
 };
 
