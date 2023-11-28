@@ -20,9 +20,14 @@ router.get('/people', checkAuthorization(), peopleDemoApi.getPeople);
 const openCRMApi = require('../apis/opencrx-api');
 router.get('/accounts', openCRMApi.getAccounts);
 
+const reportsApi = require("../apis/report-api");
+router.get("/reports/:reportId", checkAuthorization(),  reportsApi.getReport)
+router.get("/reports", checkAuthorization(),  reportsApi.list);
+router.post("/reports", checkAuthorization(),  reportsApi.create)
+
 const employeeApi = require("../apis/employee-api")
-router.get("/employees/:employeeId", employeeApi.get)
-router.get("/employees", employeeApi.list)
-router.post("/employees", employeeApi.create)
+router.get("/employees/:employeeId", checkAuthorization(),  employeeApi.get)
+router.get("/employees", checkAuthorization(),  employeeApi.list)
+router.post("/employees", checkAuthorization(),  employeeApi.create)
 
 module.exports = router;
