@@ -30,9 +30,17 @@ exports.create = function(req, res) {
 
 exports.update = function(req, res) {
   const db = req.app.get('db');
-
+// Note: Pass id always as param, somehow finds mongose that way the objects
   employeeService.update(db, req.params._id, req.body).then(employee => {
     console.log('Updated: ', employee);
     res.send(employee);
+  });
+};
+
+exports.delete = function(req, res) {
+  const db = req.app.get('db');
+
+  employeeService.delete(db, req.params._id).then(employee => {
+    res.send({ message: 'Employee with ID: ' + employee.id + ' successfully deleted.' });
   });
 };

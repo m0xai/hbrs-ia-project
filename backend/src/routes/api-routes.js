@@ -30,5 +30,6 @@ router.get('/employees/:employeeId', checkAuthorization(), employeeApi.get);
 router.get('/employees', checkAuthorization(), employeeApi.list);
 router.post('/employees', checkAuthorization(), employeeApi.create);
 router.put('/employees/:employeeId', checkAuthorization(), employeeApi.update);
+router.delete('/employees/:employeeId', checkAuthorization(), employeeApi.delete);
 
 module.exports = router;

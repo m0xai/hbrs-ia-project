@@ -14,3 +14,7 @@ exports.create = async function(db, employee) {
 exports.update = async function(db, id, employee) {
   return await db.collection('employees').updateOne({ id }, { $set: employee });
 };
+
+exports.delete = async function(db, id) {
+  return await db.collection('employees').deleteOne({ id });
+};
