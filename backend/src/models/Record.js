@@ -8,4 +8,4 @@ class Record {
   }
 }
 
-module.exports = Record
+module.exports = Record;
