@@ -10,3 +10,9 @@ exports.list = async function(db, filters) {
 exports.create = async function(db, employee) {
   return await db.collection("employees").insertOne(employee);
 }
+
+exports.update = async function(db, id, employee) {
+  const u = await db.collection("employees").findOne({ id: id })
+  console.log("U: ", u);
+  return await db.collection("employees").updateOne({ id }, {$set: employee})
+}
