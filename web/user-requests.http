@@ -1,8 +1,0 @@
-### Login with username & password
-POST http://localhost:8080/api/login
-Content-Type: application/json
-
-{
-  "username": "admin",
-  "password": "5$c3inw%"
-}
