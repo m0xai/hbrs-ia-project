@@ -1,4 +1,4 @@
-import { BaseModel } from './_core/base';
+import { BaseModel } from './_core/BaseModel';
 
 export class Employee extends BaseModel<Employee> {
     public firstName?: string;
