@@ -22,8 +22,8 @@ export class EmployeeListPageComponent implements OnInit {
 
     ngOnInit() {
         this.employeeService.list().subscribe({
-            next: () => {
-                console.log('Eyy');
+            next: (response) => {
+                this.dataSource = response;
             }
         });
     }
