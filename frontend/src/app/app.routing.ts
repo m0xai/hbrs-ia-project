@@ -5,7 +5,8 @@ import {LandingPageComponent} from "./pages/landing-page/landing-page.component"
 import {AuthGuardService} from "./services/auth-guard.service";
 import {ExamplePageComponent} from "./pages/example-page/example-page.component";
 import {NotFoundPageComponent} from "./pages/not-found-page/not-found-page.component";
-import {EmployeeListPageComponent} from "./pages/employee-list-page/employee-list-page.component"; /*
+import {EmployeeListPageComponent} from "./pages/employee-list-page/employee-list-page.component";
+import {EmployeeDetailsComponent} from "./pages/employee-details/employee-details.component"; /*
   This array holds the relation of paths and components which angular router should resolve.
 
   If you want add a new page with a separate path/subdirectory you should register it here.
@@ -24,10 +25,11 @@ import {EmployeeListPageComponent} from "./pages/employee-list-page/employee-lis
   If a new page should also show up in the menu bar, you need to add it there too.
   Look at: frontend/src/app/components/menu-bar/menu-bar.component.ts
  */
-const routes: Routes = [
+export const routes: Routes = [
   {path: "login", component: LoginPageComponent},
   {path: "example", component: ExamplePageComponent, canActivate: [AuthGuardService]},
   {path: "employees", component: EmployeeListPageComponent, canActivate: [AuthGuardService]},
+  {path: "employees/:id", component: EmployeeDetailsComponent, canActivate: [AuthGuardService]},
   {path: "", component: LandingPageComponent, canActivate: [AuthGuardService]},
   {path: "**", component: NotFoundPageComponent}, // these entries are matched from top to bottom => not found should be the last entry
 ];

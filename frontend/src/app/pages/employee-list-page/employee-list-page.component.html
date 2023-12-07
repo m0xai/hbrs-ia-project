@@ -2,10 +2,7 @@
     <mat-card-title>Employee List</mat-card-title>
     <p>Basic table for demonstrating backend data fetch</p>
     <table [dataSource]='dataSource' mat-table>
-        <ng-container matColumnDef='_id'>
-            <th *matHeaderCellDef mat-header-cell> ID.</th>
-            <td *matCellDef='let element' mat-cell> {{ element._id }}</td>
-        </ng-container>
+        <caption hidden>Shows list of employees</caption>
         <ng-container matColumnDef='firstName'>
             <th *matHeaderCellDef mat-header-cell> First Name.</th>
             <td *matCellDef='let element' mat-cell> {{ element.firstName }}</td>

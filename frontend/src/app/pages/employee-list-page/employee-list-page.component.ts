@@ -9,13 +9,14 @@ import {EmployeeService} from "../../services/employee/employee.service";
 })
 export class EmployeeListPageComponent implements OnInit {
   dataSource: Employee[] = [];
-  displayedColumns: string[] = ["_id", "firstName", "lastName", "age", "department"];
+  displayedColumns: string[] = ["firstName", "lastName", "age", "department"];
 
   constructor(private employeeService: EmployeeService) {}
 
   ngOnInit() {
     this.employeeService.list().subscribe({
       next: (response) => {
+        // NOTE: Data source has extra field, which is _id and not included in displayedColumns
         this.dataSource = response;
       },
     });

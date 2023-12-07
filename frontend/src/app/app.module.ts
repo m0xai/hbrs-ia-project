@@ -1,7 +1,7 @@
 import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
 
-import {AppRouting} from "./app.routing";
+import {AppRouting, routes} from "./app.routing";
 import {AppComponent} from "./app.component";
 import {LoginPageComponent} from "./pages/login-page/login-page.component";
 import {LoginComponent} from "./components/login/login.component";
@@ -20,6 +20,8 @@ import {NotFoundPageComponent} from "./pages/not-found-page/not-found-page.compo
 import {MatTableModule} from "@angular/material/table";
 import {EmployeeListPageComponent} from "./pages/employee-list-page/employee-list-page.component";
 import {AuthInterceptor} from "./interceptors/auth.interceptor";
+import {EmployeeDetailsComponent} from "./pages/employee-details/employee-details.component";
+import {provideRouter, withComponentInputBinding} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import {AuthInterceptor} from "./interceptors/auth.interceptor";
     ExamplePageComponent,
     NotFoundPageComponent,
     EmployeeListPageComponent,
+    EmployeeDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +54,7 @@ import {AuthInterceptor} from "./interceptors/auth.interceptor";
       useClass: AuthInterceptor,
       multi: true,
     },
+    provideRouter(routes, withComponentInputBinding()),
   ],
   bootstrap: [AppComponent],
 })
