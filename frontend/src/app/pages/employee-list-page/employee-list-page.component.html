@@ -2,6 +2,10 @@
     <mat-card-title>Employee List</mat-card-title>
     <p>Basic table for demonstrating backend data fetch</p>
     <table [dataSource]='dataSource' mat-table>
+        <ng-container matColumnDef='_id'>
+            <th *matHeaderCellDef mat-header-cell> ID.</th>
+            <td *matCellDef='let element' mat-cell> {{ element._id }}</td>
+        </ng-container>
         <ng-container matColumnDef='firstName'>
             <th *matHeaderCellDef mat-header-cell> First Name.</th>
             <td *matCellDef='let element' mat-cell> {{ element.firstName }}</td>
@@ -26,7 +30,7 @@
         </ng-container>
 
         <tr *matHeaderRowDef='displayedColumns' mat-header-row></tr>
-        <tr *matRowDef='let row; columns: displayedColumns;' mat-row></tr>
+        <tr *matRowDef='let row; columns: displayedColumns;' [routerLink]="'/employees/' + row._id" mat-row></tr>
     </table>
 </mat-card>
 
