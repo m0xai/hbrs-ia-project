@@ -31,7 +31,7 @@ export class ApiService<T extends BaseModel<T>> {
       .pipe(map((result) => result.map((i) => new this.tConstructor(i))));
   }
 
-  public get(id: number): Observable<T> {
+  public get(id: string): Observable<T> {
     return this.httpClient
       .get<T>(`${this.apiURL}${id}/`, {withCredentials: true})
       .pipe(map((result) => new this.tConstructor(result)));
@@ -49,7 +49,7 @@ export class ApiService<T extends BaseModel<T>> {
       .pipe(map((result) => new this.tConstructor(result)));
   }
 
-  public delete(id: number): Observable<T> {
+  public delete(id: string): Observable<T> {
     return this.httpClient.delete<T>(`${this.apiURL}${id}/`, {withCredentials: true});
   }
 }
