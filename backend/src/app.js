@@ -24,7 +24,7 @@ if (process.env.NODE_ENV === 'development') {
 app.set('environment', environment);
 
 app.use(express.json()); //adds support for json encoded bodies
-app.use(express.urlencoded({ extended: true })); //adds support url encoded bodies
+app.use(express.urlencoded({extended: true})); //adds support url encoded bodies
 app.use(upload.array()); //adds support multipart/form-data bodies
 
 app.use(cookieSession({

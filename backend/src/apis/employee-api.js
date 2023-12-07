@@ -41,6 +41,6 @@ exports.delete = function(req, res) {
   const db = req.app.get('db');
 
   employeeService.delete(db, req.params._id).then(employee => {
-    res.send({ message: 'Employee with ID: ' + employee.id + ' successfully deleted.' });
+    res.send({message: 'Employee with ID: ' + employee.id + ' successfully deleted.'});
   });
 };

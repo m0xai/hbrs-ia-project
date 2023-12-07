@@ -1,5 +1,5 @@
 exports.get = async function(db, id) {
-  return await db.collection('employees').findOne({ id: id });
+  return await db.collection('employees').findOne({id: id});
 };
 
 exports.list = async function(db, filters) {
@@ -12,9 +12,9 @@ exports.create = async function(db, employee) {
 };
 
 exports.update = async function(db, id, employee) {
-  return await db.collection('employees').updateOne({ id }, { $set: employee });
+  return await db.collection('employees').updateOne({id}, {$set: employee});
 };
 
 exports.delete = async function(db, id) {
-  return await db.collection('employees').deleteOne({ id });
+  return await db.collection('employees').deleteOne({id});
 };

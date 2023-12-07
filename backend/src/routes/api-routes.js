@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { checkAuthorization } = require('../middlewares/auth-middleware');
+const {checkAuthorization} = require('../middlewares/auth-middleware');
 
 /*
     In this file is the routing for the REST-endpoints under /api managed

@@ -20,7 +20,7 @@ exports.add = async function(db, user) {
  * @return {Promise<User>}
  */
 exports.get = async function(db, username) {
-  return db.collection('users').findOne({ username: username });
+  return db.collection('users').findOne({username: username});
 };
 
 /**

@@ -1,12 +1,12 @@
-import { BaseModel } from './_core/BaseModel';
+import {BaseModel} from "./_core/BaseModel";
 
 export class Employee extends BaseModel<Employee> {
-    public firstName?: string;
-    public lastName?: string;
-    public age?: number;
-    public department?: string;
+  public firstName?: string;
+  public lastName?: string;
+  public age?: number;
+  public department?: string;
 
-    constructor(model?: Partial<Employee>) {
-        super(model);
-    }
+  constructor(model?: Partial<Employee>) {
+    super(model);
+  }
 }

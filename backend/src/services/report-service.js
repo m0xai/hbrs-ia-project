@@ -7,5 +7,5 @@ exports.list = async function(db) {
 };
 
 exports.get = async function(db, id) {
-  return await db.collection('reports').findOne({ id: id });
+  return await db.collection('reports').findOne({id: id});
 };
