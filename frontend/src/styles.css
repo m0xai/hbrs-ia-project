@@ -26,3 +26,23 @@ code {
     border-radius: 4px;
     padding: 3px;
 }
+
+.snackbar-error {
+    --mdc-snackbar-container-color: orangered !important;
+    color: white;
+}
+
+.snackbar-warn {
+    --mdc-snackbar-container-color: darkorange;
+    color: white;
+}
+
+.snackbar-success {
+    --mdc-snackbar-container-color: forestgreen;
+    color: white;
+}
+
+.snackbar-info {
+    --mdc-snackbar-container-color: dodgerblue;
+    color: white;
+}

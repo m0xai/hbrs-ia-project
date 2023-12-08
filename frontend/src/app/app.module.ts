@@ -22,6 +22,7 @@ import {EmployeeListPageComponent} from "./pages/employee-list-page/employee-lis
 import {AuthInterceptor} from "./interceptors/auth.interceptor";
 import {EmployeeDetailsComponent} from "./pages/employee-details/employee-details.component";
 import {provideRouter, withComponentInputBinding} from "@angular/router";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import {provideRouter, withComponentInputBinding} from "@angular/router";
     MatToolbarModule,
     MatIconModule,
     MatTableModule,
+    MatSnackBarModule,
   ],
   providers: [
     {
