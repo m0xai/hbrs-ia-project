@@ -1,5 +1,6 @@
 const userService = require('../services/user-service');
 const authService = require('../services/auth-service');
+const {login} = require('../services/orangehrm-service-helpers');
 
 /**
  * endpoint, which handles login
@@ -12,7 +13,11 @@ exports.login = function(req, res) {
 
   userService.verify(db, req.body).then(user => { //verify credentials via user-service
     authService.authenticate(req.session, user); //mark session as authenticated
-    res.send('login successful');
+    login().then(response => {
+      res.send('login successful');
+    }).catch(err => {
+      res.send('Login successful, but can\'t login to OrangeHRM');
+    });
   }).catch(_ => {
     res.status(401).send('login failed');
   });

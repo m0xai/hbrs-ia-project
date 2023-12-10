@@ -4,6 +4,9 @@ const qs = require('querystring');
 let accessToken = null;
 
 const orangeHRMBaseURL = 'https://sepp-hrm.inf.h-brs.de/symfony/web/index.php';
+exports.getOrangeHRMBaseURL = function() {
+  return orangeHRMBaseURL;
+};
 
 const body = qs.stringify({
   client_id: 'api_oauth_id',
@@ -19,8 +22,8 @@ const config = {
   }
 };
 
-async function sendLoginRequest() {
 
+async function sendLoginRequest() {
   const res = await axios.post(`${orangeHRMBaseURL}/oauth/issueToken`, body, config);
   if (res.data.error) {
     throw Error(res.data.error);
@@ -28,23 +31,30 @@ async function sendLoginRequest() {
   return res;
 }
 
-let orange_access_token = '';
 
 exports.login = async function() {
   try {
     const response = await sendLoginRequest();
     console.log(response.data);
-    orange_access_token = response.data['access_token'];
+    setAccessToken(response.data['access_token']);
     return response.data;
   } catch (e) {
     console.error(e);
   }
 };
 
-exports.get_access_token = async function() {
-  if (orange_access_token) {
-    return orange_access_token;
-  } else {
-    // If token is invalid, send another request
-  }
+function setAccessToken(token) {
+  accessToken = token;
+
+  // Set the token for all future axios requests
+  axios.interceptors.request.use((config) => {
+    config.headers.Authorization = `Bearer ${token}`;
+    return config;
+  });
+
+  return token;
+}
+
+exports.getAccessToken = function() {
+  return accessToken;
 };
