@@ -34,5 +34,8 @@ router.delete('/employees/:employeeId', checkAuthorization(), employeeApi.delete
 
 const orangeHRMApi = require('../apis/orangehrm-api');
 router.post('/orange/login', checkAuthorization(), orangeHRMApi.login);
+router.get('/orange/employees', checkAuthorization(), orangeHRMApi.getAllEmployees);
+router.get('/orange/employees/:id', checkAuthorization(), orangeHRMApi.getEmployee);
+router.put('/orange/employees/:id', checkAuthorization(), orangeHRMApi.updateEmployee);
 
 module.exports = router;
