@@ -9,7 +9,7 @@ import {EmployeeService} from "../../services/employee/employee.service";
 })
 export class EmployeeListPageComponent implements OnInit {
   dataSource: Employee[] = [];
-  displayedColumns: string[] = ["firstName", "lastName", "age", "department"];
+  displayedColumns: string[] = ["code", "fullName", "unit", "jobTitle", "supervisor"];
 
   constructor(private employeeService: EmployeeService) {}
 

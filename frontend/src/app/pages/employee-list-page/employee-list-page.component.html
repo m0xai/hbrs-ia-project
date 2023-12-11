@@ -3,27 +3,36 @@
     <p>Basic table for demonstrating backend data fetch</p>
     <table [dataSource]='dataSource' mat-table>
         <caption hidden>Shows list of employees</caption>
-        <ng-container matColumnDef='firstName'>
-            <th *matHeaderCellDef mat-header-cell> First Name.</th>
-            <td *matCellDef='let element' mat-cell> {{ element.firstName }}</td>
+        <ng-container matColumnDef='code'>
+            <th *matHeaderCellDef mat-header-cell> Code.</th>
+            <td *matCellDef='let element' mat-cell> {{ element.code }}</td>
+        </ng-container>
+        <ng-container matColumnDef='fullName'>
+            <th *matHeaderCellDef mat-header-cell> Full Name.</th>
+            <td *matCellDef='let element' mat-cell> {{ element.fullName }}</td>
         </ng-container>
 
         <!-- Name Column -->
-        <ng-container matColumnDef='lastName'>
-            <th *matHeaderCellDef mat-header-cell> Last Name</th>
-            <td *matCellDef='let element' mat-cell> {{ element.lastName }}</td>
+        <ng-container matColumnDef='unit'>
+            <th *matHeaderCellDef mat-header-cell> Unit</th>
+            <td *matCellDef='let element' mat-cell> {{ element.unit }}</td>
         </ng-container>
 
         <!-- Weight Column -->
-        <ng-container matColumnDef='age'>
-            <th *matHeaderCellDef mat-header-cell> Age</th>
-            <td *matCellDef='let element' mat-cell> {{ element.age }}</td>
+        <ng-container matColumnDef='jobTitle'>
+            <th *matHeaderCellDef mat-header-cell> Job Title</th>
+            <td *matCellDef='let element' mat-cell> {{ element.jobTitle }}</td>
         </ng-container>
 
-        <!-- Symbol Column -->
-        <ng-container matColumnDef='department'>
-            <th *matHeaderCellDef mat-header-cell> Department</th>
-            <td *matCellDef='let element' mat-cell> {{ element.department }}</td>
+        <ng-container matColumnDef='supervisor'>
+            <th *matHeaderCellDef mat-header-cell> Supervisor</th>
+            <td *matCellDef='let element' mat-cell>
+                <ng-container *ngIf='element.supervisor'>
+                    <ng-container *ngFor='let s of element.supervisor'>
+                        {{ s.name }}
+                    </ng-container>
+                </ng-container>
+            </td>
         </ng-container>
 
         <tr *matHeaderRowDef='displayedColumns' mat-header-row></tr>

@@ -8,6 +8,6 @@ import {HttpClient} from "@angular/common/http";
 })
 export class EmployeeService extends ApiService<Employee> {
   constructor(private http: HttpClient) {
-    super(http, Employee, "employees/");
+    super(http, Employee, "orange/employees/");
   }
 }
