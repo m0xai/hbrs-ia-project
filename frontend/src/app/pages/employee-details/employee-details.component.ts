@@ -3,6 +3,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {EmployeeService} from "../../services/employee/employee.service";
 import {Employee} from "../../models/Employee";
 import {NotifyService} from "../../services/_core/notify.service";
+import {ReviewService} from "../../services/review/review.service";
+import {Review} from "../../models/Review";
 
 @Component({
   selector: "app-employee-details",
@@ -11,13 +13,16 @@ import {NotifyService} from "../../services/_core/notify.service";
 })
 export class EmployeeDetailsComponent implements OnInit {
   employee: Employee | null = null;
+  displayedColumns = ["period", "opinionSum", "remarks"];
   employeeId: string = "";
+  reviews: Review[] = [];
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private employeeService: EmployeeService,
     private notifyService: NotifyService,
+    private employeeService: EmployeeService,
+    private reviewService: ReviewService,
   ) {}
 
   @Input() set id(val: string) {
@@ -25,6 +30,14 @@ export class EmployeeDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.fetchEmployee();
+    this.reviewService.list().subscribe({
+      next: (value) => (this.reviews = value),
+      error: (err) => console.info(err),
+    });
+  }
+
+  fetchEmployee() {
     if (this.employeeId) {
       this.employeeService.get(this.employeeId).subscribe({
         next: (v) => {
