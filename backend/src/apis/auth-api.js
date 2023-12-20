@@ -1,6 +1,6 @@
-const userService = require('../services/user-service');
-const authService = require('../services/auth-service');
-const {login} = require('../services/orangehrm-service-helpers');
+const userService = require("../services/user-service");
+const authService = require("../services/auth-service");
+const {login} = require("../services/orangehrm-service-helpers");
 
 /**
  * endpoint, which handles login
@@ -9,18 +9,26 @@ const {login} = require('../services/orangehrm-service-helpers');
  * @return {Promise<void>}
  */
 exports.login = function(req, res) {
-  const db = req.app.get('db');//get database from express
+  const db = req.app.get("db");//get database from express
 
-  userService.verify(db, req.body).then(user => { //verify credentials via user-service
-    authService.authenticate(req.session, user); //mark session as authenticated
-    login().then(response => {
-      res.send('login successful');
-    }).catch(err => {
-      res.send('Login successful, but can\'t login to OrangeHRM');
+  userService
+    .verify(db, req.body)
+    .then(user => {
+      authService.authenticate(req.session, user); // mark session as authenticated
+      return login();
+    })
+    .then(response => {
+      res.send("login successful");
+    })
+    .catch(error => {
+      if (error === "Login failed") {
+        res.status(401).send("login failed");
+      } else if (error.message === "Password wrong!") {
+        res.status(401).send("Wrong Password!");
+      } else {
+        res.status(500).send("Internal Server Error");
+      }
     });
-  }).catch(_ => {
-    res.status(401).send('login failed');
-  });
 };
 
 /**
@@ -31,7 +39,7 @@ exports.login = function(req, res) {
  */
 exports.logout = function(req, res) {
   authService.deAuthenticate(req.session); //destroy session
-  res.send('logout successful');
+  res.send("logout successful");
 };
 
 /**
