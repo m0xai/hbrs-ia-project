@@ -1,6 +1,6 @@
 const userService = require("../services/user-service");
 const authService = require("../services/auth-service");
-const {login} = require("../services/orangehrm-service-helpers");
+const {loginOrangeHRM} = require("../services/orangehrm-service-helpers");
 
 /**
  * endpoint, which handles login
@@ -9,23 +9,26 @@ const {login} = require("../services/orangehrm-service-helpers");
  * @return {Promise<void>}
  */
 exports.login = function(req, res) {
-  const db = req.app.get("db");//get database from express
+  const db = req.app.get("db");
 
   userService
     .verify(db, req.body)
     .then(user => {
-      authService.authenticate(req.session, user); // mark session as authenticated
-      return login();
+      return authService.authenticate(req.session, user);
     })
     .then(response => {
+      return loginOrangeHRM();
+    })
+    .then(_ => {
       res.send("login successful");
     })
     .catch(error => {
-      if (error === "Login failed") {
+      if (error.message === "Login failed") {
         res.status(401).send("login failed");
       } else if (error.message === "Password wrong!") {
         res.status(401).send("Wrong Password!");
       } else {
+        console.error(error);
         res.status(500).send("Internal Server Error");
       }
     });
@@ -48,10 +51,8 @@ exports.logout = function(req, res) {
  * @param res express response
  * @return {Promise<void>}
  */
-exports.isLoggedIn = function(req, res) {
-  if (authService.isAuthenticated(req.session)) { //check via auth-service
-    res.send({loggedIn: true});
-  } else {
-    res.send({loggedIn: false});
-  }
+exports.isLoggedIn = async function(req, res) {
+  authService.isAuthenticated(req.session).then(val => {
+    val ? res.send({loggedIn: true}) : res.send({loggedIn: false});
+  });
 };

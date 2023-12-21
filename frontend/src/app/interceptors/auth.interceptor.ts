@@ -21,11 +21,12 @@ export class AuthInterceptor implements HttpInterceptor {
         (err: any) => {
           if (err instanceof HttpErrorResponse) {
             if (err.status === 401) {
-              this.authService.login({username: "admin", password: "5$c3inw%"}).subscribe({
-                next: () => {
-                  return next.handle(request);
-                },
-              });
+              // TODO: Navigate user to login page, if user already in Login Page, show error Banner
+              // this.authService.login({username: "admin", password: "5$c3inw%"}).subscribe({
+              //   next: () => {
+              //     return next.handle(request);
+              //   },
+              // });
             }
           }
         },

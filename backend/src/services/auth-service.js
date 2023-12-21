@@ -14,8 +14,8 @@ exports.authenticate = function(session, user) {
  * @param session current session
  * @return {boolean} true if user is authenticated
  */
-exports.isAuthenticated = function(session) {
-  return session.authenticated ? true : false;
+exports.isAuthenticated = async function(session) {
+  return Promise.resolve(!!session.authenticated);
 };
 
 /**
