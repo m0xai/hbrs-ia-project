@@ -10,6 +10,7 @@ import {EmployeeService} from "../../services/employee/employee.service";
 export class EmployeeListPageComponent implements OnInit {
   dataSource: Employee[] = [];
   displayedColumns: string[] = ["employeeId", "fullName", "unit", "jobTitle", "supervisor"];
+  employeeSearchModel: string;
 
   constructor(private employeeService: EmployeeService) {}
 
@@ -20,5 +21,9 @@ export class EmployeeListPageComponent implements OnInit {
         this.dataSource = response;
       },
     });
+  }
+
+  onSearchInput(val) {
+    console.log("Searched id: ", val);
   }
 }

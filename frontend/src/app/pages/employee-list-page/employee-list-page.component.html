@@ -1,6 +1,11 @@
 <mat-card>
     <mat-card-title>Employee List</mat-card-title>
     <p>Basic table for demonstrating backend data fetch</p>
+    <mat-form-field>
+        <mat-label>Search Employee by ID</mat-label>
+        <input (ngModelChange)='onSearchInput($event)' [ngModel]='employeeSearchModel' matInput>
+    </mat-form-field>
+    <mat-card-subtitle>Latest Employees</mat-card-subtitle>
     <table [dataSource]='dataSource' mat-table>
         <caption hidden>Shows list of employees</caption>
         <ng-container matColumnDef='employeeId'>
