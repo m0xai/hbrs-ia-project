@@ -23,6 +23,16 @@ import {AuthInterceptor} from "./interceptors/auth.interceptor";
 import {EmployeeDetailsComponent} from "./pages/employee-details/employee-details.component";
 import {provideRouter, withComponentInputBinding} from "@angular/router";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {BonusCalculatorPageComponent} from "./pages/bonus-calculator-page/bonus-calculator-page.component";
+import {CeoBonusDetailComponent} from "./pages/ceobonus-page/ceobonusdetail-page/ceobonusdetail-page.component";
+import {SalesmanPageComponent} from "./pages/salesman-page/salesman-page.component";
+import {CeoBonusComponent} from "./pages/ceobonus-page/ceobonus-page.component";
+import {BonusPageComponent} from "./pages/salesman-page/bonus-page/bonus-page.component";
+import {AddBonusPageComponent} from "./pages/salesman-page/bonus-page/add-bonus-page/add-bonus-page.component";
+import {SocialperformanceDialogComponent} from "./pages/salesman-page/socialperformance-dialog/socialperformance-dialog.component";
+import {MatSelectModule} from "@angular/material/select";
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatListModule} from "@angular/material/list";
 
 @NgModule({
   declarations: [
@@ -35,6 +45,13 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     NotFoundPageComponent,
     EmployeeListPageComponent,
     EmployeeDetailsComponent,
+    BonusCalculatorPageComponent,
+    SalesmanPageComponent,
+    CeoBonusComponent,
+    CeoBonusDetailComponent,
+    BonusPageComponent,
+    AddBonusPageComponent,
+    SocialperformanceDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +66,9 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     MatIconModule,
     MatTableModule,
     MatSnackBarModule,
+    MatSelectModule,
+    MatDialogModule,
+    MatListModule,
   ],
   providers: [
     {
