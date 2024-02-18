@@ -17,8 +17,8 @@ let ELEMENT_DATA: Salesman[];
 })
 export class SalesmanPageComponent implements OnInit {
   /*
-     The buttons in the baseline area of webpage
-    */
+         The buttons in the baseline area of webpage
+        */
   buttons: {title: string; action: string}[] = [];
 
   id: number;

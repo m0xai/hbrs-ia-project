@@ -1,21 +1,21 @@
 <!-- Add Bonus Page -->
 <h1>Bonus Computation Sheet</h1>
 
-<div class="container">
+<div class='container'>
     <!-- Credentials -->
-    <div id="first-area" class="area">
-        <table _ngcontent-qps-c96="" class="ng-star-inserted info">
-            <tr _ngcontent-qps-c96="">
-                <th _ngcontent-qps-c96="">Name</th>
-                <td _ngcontent-qps-c96="">{{ salesman.firstname }} {{ salesman.lastname }}</td>
+    <div class='area' id='first-area'>
+        <table _ngcontent-qps-c96='' class='ng-star-inserted info'>
+            <tr _ngcontent-qps-c96=''>
+                <th _ngcontent-qps-c96=''>Name</th>
+                <td _ngcontent-qps-c96=''>{{ salesman.firstname }} {{ salesman.lastname }}</td>
             </tr>
-            <tr _ngcontent-qps-c96="">
-                <th _ngcontent-qps-c96="">Employee ID</th>
-                <td _ngcontent-qps-c96="">{{ salesman.governmentid }}</td>
+            <tr _ngcontent-qps-c96=''>
+                <th _ngcontent-qps-c96=''>Employee ID</th>
+                <td _ngcontent-qps-c96=''>{{ salesman.governmentid }}</td>
             </tr>
-            <tr _ngcontent-qps-c96="">
-                <th _ngcontent-qps-c96="">Department</th>
-                <td _ngcontent-qps-c96="">{{ salesman.unit }}</td>
+            <tr _ngcontent-qps-c96=''>
+                <th _ngcontent-qps-c96=''>Department</th>
+                <td _ngcontent-qps-c96=''>{{ salesman.unit }}</td>
             </tr>
         </table>
 
@@ -34,50 +34,52 @@
                 <input matInput type="text" value="{{ salesman.unit }}" [disabled]="readonly" />
             </mat-form-field>
             -->
-            <mat-form-field appearance="fill" style="width: 225px">
+            <mat-form-field appearance='fill' style='width: 225px'>
                 <mat-label>Year of Performance</mat-label>
-                <mat-select [(value)]="year" class="yearofperformance">
-                    <mat-option value="{{ item }}" *ngFor="let item of interval">{{ item }}</mat-option>
+                <mat-select [(value)]='year' class='yearofperformance'>
+                    <mat-option *ngFor='let item of interval' value='{{ item }}'>{{ item }}</mat-option>
                 </mat-select>
             </mat-form-field>
         </ng-form>
     </div>
 
 
-    <ng-container *ngIf="year != undefined || year != null">
+    <ng-container *ngIf='year != undefined || year != null'>
         <!-- Orders Evaluation -->
-        <div id="second-area" class="area">
+        <div class='area' id='second-area'>
             <h2>Orders Evaluation</h2>
-            <ng-form *ngFor="let product of products; index as i" class="info_area">
+            <ng-form *ngFor='let product of products; index as i' class='info_area'>
                 <p><b>Name of product: </b>{{ product.name }}</p>
-                <ng-container *ngFor="let salesOrder of salesOrders">
-                    <div *ngIf="salesOrder[1][i] && salesOrder[1][i].productID === product.productID && year == salesOrder[0]['createdAt']">
+                <ng-container *ngFor='let salesOrder of salesOrders'>
+                    <div
+                        *ngIf="salesOrder[1][i] && salesOrder[1][i].productID === product.productID && year == salesOrder[0]['createdAt']">
                         <mat-form-field>
                             <mat-label>Client</mat-label>
-                            <input matInput type="text" value="{{ getNameByCustomerID( salesOrder[0].customerUID ) }}"
-                                   [disabled]="readonly"/>
+                            <input [disabled]='readonly' matInput type='text'
+                                   value='{{ getNameByCustomerID( salesOrder[0].customerUID ) }}' />
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Client Ranking</mat-label>
-                            <input matInput type="text"
-                                   value="{{ getRankingByCustomerID( salesOrder[0].customerUID ) }}"
-                                   [disabled]="readonly"/>
+                            <input [disabled]='readonly' matInput
+                                   type='text'
+                                   value='{{ getRankingByCustomerID( salesOrder[0].customerUID ) }}' />
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Price per Unit</mat-label>
-                            <input matInput type="text" value="{{ salesOrder[1][i].pricePerUnit_ }}"
-                                   [disabled]="readonly"/>
+                            <input [disabled]='readonly' matInput type='text'
+                                   value='{{ salesOrder[1][i].pricePerUnit_ }}' />
                             <mat-icon matSuffix>euro</mat-icon>
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Items</mat-label>
-                            <input matInput type="text" value="{{ salesOrder[1][i].quantity_ }}" [disabled]="readonly"/>
+                            <input [disabled]='readonly' matInput type='text'
+                                   value='{{ salesOrder[1][i].quantity_ }}' />
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Bonus</mat-label>
-                            <input matInput type="text" class="orderBonus"
-                                   value="{{ calculateOrderBonus(salesOrder[1][i].pricePerUnit_ , salesOrder[1][i].quantity_, getBonusmultiplikator( salesOrder[0].customerUID )) }}"
-                                   [disabled]="readonly"/>
+                            <input [disabled]='readonly' class='orderBonus' matInput
+                                   type='text'
+                                   value='{{ calculateOrderBonus(salesOrder[1][i].pricePerUnit_ , salesOrder[1][i].quantity_, getBonusmultiplikator( salesOrder[0].customerUID )) }}' />
                             <mat-icon matSuffix>euro</mat-icon>
                         </mat-form-field>
                     </div>
@@ -89,34 +91,35 @@
                 <p>Total Bonus of Orders: </p>
                 <mat-form-field>
                     <mat-label>Bonus</mat-label>
-                    <input matInput type="text" class="totalBonus" value="{{ calculateTotalOrderBonus() }}"
-                           [disabled]="readonly"/>
+                    <input [disabled]='readonly' class='totalBonus' matInput type='text'
+                           value='{{ calculateTotalOrderBonus() }}' />
                     <mat-icon matSuffix>euro</mat-icon>
                 </mat-form-field>
             </div>
         </div>
 
-        <div id="third-area" class="area">
+        <div class='area' id='third-area'>
             <h2>Social Performance Evaluation</h2>
-            <ng-form *ngFor="let performanceRecord of performanceRecordsOfSalesman">
-                <div *ngIf="performanceRecord.year == year" class="info_area">
+            <ng-form *ngFor='let performanceRecord of performanceRecordsOfSalesman'>
+                <div *ngIf='performanceRecord.year == year' class='info_area'>
                     <h4>{{ performanceRecord.description }}</h4>
                     <mat-form-field>
                         <mat-label>Target Value</mat-label>
-                        <input matInput type="text" value="{{ performanceRecord.targetValue }}"
-                               [disabled]="readonly"/>
+                        <input [disabled]='readonly' matInput type='text'
+                               value='{{ performanceRecord.targetValue }}' />
                     </mat-form-field>
 
                     <mat-form-field>
                         <mat-label>Actual Value</mat-label>
-                        <input matInput type="text" value="{{ performanceRecord.actualValue }}"
-                               [disabled]="readonly"/>
+                        <input [disabled]='readonly' matInput type='text'
+                               value='{{ performanceRecord.actualValue }}' />
                     </mat-form-field>
 
                     <mat-form-field>
                         <mat-label>Bonus</mat-label>
-                        <input matInput type="text" class="performanceBonus" value="{{ calculatePerformanceBonus(performanceRecord.targetValue,performanceRecord.actualValue) }}"
-                               [disabled]="readonly"/>
+                        <input [disabled]='readonly' class='performanceBonus' matInput
+                               type='text'
+                               value='{{ calculatePerformanceBonus(performanceRecord.targetValue,performanceRecord.actualValue) }}' />
                         <mat-icon matSuffix>euro</mat-icon>
                     </mat-form-field>
                 </div>
@@ -130,23 +133,26 @@
                 <p>Total Bonus of Social Performance: </p>
                 <mat-form-field>
                     <mat-label>Bonus</mat-label>
-                    <input matInput type="text" class="totalBonus" value="{{ calculateTotalPerformanceBonus() }}"
-                           [disabled]="readonly"/>
+                    <input [disabled]='readonly' class='totalBonus' matInput type='text'
+                           value='{{ calculateTotalPerformanceBonus() }}' />
                     <mat-icon matSuffix>euro</mat-icon>
                 </mat-form-field>
             </div>
         </div>
 
-        <div id="botton-area" class="area">
+        <div class='area' id='botton-area'>
             <h2>Save Bonus</h2>
             <p>Total Bonus: </p>
             <mat-form-field>
                 <mat-label>Bonus</mat-label>
-                <input matInput type="text" id="totalBonusSum" value="{{ calculateTotalBonusSum() }}"
-                       [disabled]="readonly" />
+                <input [disabled]='readonly' id='totalBonusSum' matInput type='text'
+                       value='{{ calculateTotalBonusSum() }}' />
                 <mat-icon matSuffix>euro</mat-icon>
             </mat-form-field>
-            <button mat-flat-button color="primary" id="requestButton" (click)="sendBonusRequest()" [disabled]="hasAlreadyBonusSalaryForYear()">Send Request</button>
+            <button (click)='sendBonusRequest()' [disabled]='hasAlreadyBonusSalaryForYear()' color='primary'
+                    id='requestButton'
+                    mat-flat-button>Send Request
+            </button>
         </div>
 
     </ng-container>

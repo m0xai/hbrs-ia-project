@@ -13,7 +13,7 @@
     padding: 1em;
 }
 
-#remark-area{
+#remark-area {
     width: 85%;
     height: 200px;
 }
@@ -29,22 +29,22 @@
     resize: none;
 }
 
-#confirm-area{
+#confirm-area {
     display: flex;
     justify-content: space-around;
     width: 100%;
 }
 
-.mat-flat-button{
+.mat-flat-button {
     margin: 5px;
 }
 
-#bonusinfo-area{
+#bonusinfo-area {
     width: 100%;
     text-align: left;
 }
 
-#bonusinfo{
+#bonusinfo {
     width: 100%;
     border-collapse: collapse;
 }
@@ -54,4 +54,6 @@
     padding: 8px;
 }
 
-#bonusinfo tr:nth-child(even){background-color: #f2f2f2;}
+#bonusinfo tr:nth-child(even) {
+    background-color: #f2f2f2;
+}

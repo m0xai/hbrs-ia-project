@@ -3,11 +3,12 @@ table {
 }
 
 .button {
-    background: #3f51b5; color: #fff;
+    background: #3f51b5;
+    color: #fff;
 }
 
 .button:disabled {
-    background-color: rgba(180,180,180,0.8);
+    background-color: rgba(180, 180, 180, 0.8);
     color: grey;
     cursor: wait;
 }

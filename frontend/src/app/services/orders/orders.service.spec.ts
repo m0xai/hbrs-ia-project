@@ -1,16 +1,15 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from "@angular/core/testing";
+import {OpenCRXService} from "./orders.service";
 
-import { OrdersService } from './orders.service';
-
-describe('OrdersService', () => {
-  let service: OrdersService;
+describe("OrdersService", () => {
+  let service: OpenCRXService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(OrdersService);
+    service = TestBed.inject(OpenCRXService);
   });
 
-  it('should be created', () => {
+  it("should be created", () => {
     expect(service).toBeTruthy();
   });
 });

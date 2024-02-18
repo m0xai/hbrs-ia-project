@@ -1,16 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from "@angular/core/testing";
 
-import { SocialperformanceDialogComponent } from './socialperformance-dialog.component';
+import {SocialperformanceDialogComponent} from "./socialperformance-dialog.component";
 
-describe('SocialperformanceDialogComponent', () => {
+describe("SocialperformanceDialogComponent", () => {
   let component: SocialperformanceDialogComponent;
   let fixture: ComponentFixture<SocialperformanceDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SocialperformanceDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [SocialperformanceDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('SocialperformanceDialogComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
