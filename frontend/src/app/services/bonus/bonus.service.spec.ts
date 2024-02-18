@@ -1,16 +1,16 @@
-import {TestBed} from "@angular/core/testing";
+import { TestBed } from '@angular/core/testing';
 
-import {BonusService} from "./bonus.service";
+import { BonusService } from './bonus.service';
 
-describe("BonusService", () => {
-  let service: BonusService;
+describe('BonusService', () => {
+    let service: BonusService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(BonusService);
-  });
+    beforeEach(() => {
+        TestBed.configureTestingModule({});
+        service = TestBed.inject(BonusService);
+    });
 
-  it("should be created", () => {
-    expect(service).toBeTruthy();
-  });
+    it('should be created', () => {
+        expect(service).toBeTruthy();
+    });
 });

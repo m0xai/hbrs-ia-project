@@ -9,24 +9,24 @@ import {map} from "rxjs/operators";
  * it enables angular router, to check whether a user is allowed to access a page or not
  */
 @Injectable({
-  providedIn: "root",
+    providedIn: 'root',
 })
 export class AuthGuardService {
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-  ) {}
+    constructor(
+        private authService: AuthService,
+        private router: Router,
+    ) {}
 
-  canActivate(): Observable<boolean> {
-    // mapping isLoggedIn():Observable to this function:
-    return this.authService.isLoggedIn().pipe(
-      map((state): boolean => {
-        if (!state) {
-          // go back to login, if user is not allowed to enter
-          void this.router.navigate(["login"]);
-        }
-        return state;
-      }),
-    );
-  }
+    canActivate(): Observable<boolean> {
+        // mapping isLoggedIn():Observable to this function:
+        return this.authService.isLoggedIn().pipe(
+            map((state): boolean => {
+                if (!state) {
+                    // go back to login, if user is not allowed to enter
+                    void this.router.navigate(['login']);
+                }
+                return state;
+            }),
+        );
+    }
 }

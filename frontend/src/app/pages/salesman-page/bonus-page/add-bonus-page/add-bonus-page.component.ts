@@ -1,243 +1,253 @@
-import {Component, OnInit} from "@angular/core";
-import {Salesman} from "../../../../models/Salesman";
-import {PerformanceRecord} from "../../../../models/PerformanceRecord";
-import {Router} from "@angular/router";
-import {Bonus} from "../../../../models/Bonus";
-import {OpenCRXService} from "../../../../services/orders/orders.service";
-import {PerformanceRecordService} from "../../../../services/record/performance-record.service";
-import {BonusService} from "../../../../services/bonus/bonus.service";
+import { Component, OnInit } from '@angular/core';
+import { Salesman } from '../../../../models/Salesman';
+import { PerformanceRecord } from '../../../../models/PerformanceRecord';
+import { Router } from '@angular/router';
+import { Bonus } from '../../../../models/Bonus';
+import { OpenCRXService } from '../../../../services/orders/orders.service';
+import { PerformanceRecordService } from '../../../../services/record/performance-record.service';
+import { BonusService } from '../../../../services/bonus/bonus.service';
 
 @Component({
-  selector: "app-add-bonus-page",
-  templateUrl: "./add-bonus-page.component.html",
-  styleUrls: ["./add-bonus-page.component.css"],
-  providers: [OpenCRXService, PerformanceRecordService, BonusService],
+    selector: 'app-add-bonus-page',
+    templateUrl: './add-bonus-page.component.html',
+    styleUrls: ['./add-bonus-page.component.css'],
+    providers: [OpenCRXService, PerformanceRecordService, BonusService],
 })
 export class AddBonusPageComponent implements OnInit {
-  products: any;
-  salesOrders: any;
-  customersData: any[] = [];
-  salesman: Salesman;
-  interval: number[];
-  year: number;
-  readonly: boolean = true;
-  categories: string[] = [
-    "Leadership Competence",
-    "Openness to Employee",
-    "Social Behaviour to Employee",
-    "Attitude towards Client",
-    "Communication Skills",
-    "Integrity to Company",
-  ];
-  performanceRecordsOfSalesman: PerformanceRecord[];
-  private date: Date;
-  private bonuses: Bonus[];
+    products: any;
+    salesOrders: any;
+    customersData: any[] = [];
+    salesman: Salesman;
+    interval: number[];
+    year: number;
+    readonly: boolean = true;
+    categories: string[] = [
+        'Leadership Competence',
+        'Openness to Employee',
+        'Social Behaviour to Employee',
+        'Attitude towards Client',
+        'Communication Skills',
+        'Integrity to Company',
+    ];
+    performanceRecordsOfSalesman: PerformanceRecord[];
+    private date: Date;
+    private bonuses: Bonus[];
 
-  constructor(
-    private serviceOpenCRX: OpenCRXService,
-    private servicePerformanceRecord: PerformanceRecordService,
-    private serviceBonus: BonusService,
-    private router: Router,
-  ) {}
+    constructor(
+        private serviceOpenCRX: OpenCRXService,
+        private servicePerformanceRecord: PerformanceRecordService,
+        private serviceBonus: BonusService,
+        private router: Router,
+    ) {}
 
-  ngOnInit(): void {
-    this.salesman = history.state.salesman;
-    this.bonuses = history.state.bonuses;
-    this.salesOrders = history.state.salesOrders;
-    this.products = history.state.products;
+    ngOnInit(): void {
+        this.salesman = history.state.salesman;
+        this.bonuses = history.state.bonuses;
+        this.salesOrders = history.state.salesOrders;
+        this.products = history.state.products;
 
-    this.getDataOfCustomers();
-    this.getPerformanceRecordOfSalesman();
+        this.getDataOfCustomers();
+        this.getPerformanceRecordOfSalesman();
 
-    this.date = new Date();
-    this.getYearsOfPerformance();
+        this.date = new Date();
+        this.getYearsOfPerformance();
 
-    console.log("Alle Bonuses:");
-    console.log(this.bonuses);
+        console.log('Alle Bonuses:');
+        console.log(this.bonuses);
 
-    console.log("Alle Products:");
-    console.log(this.products);
+        console.log('Alle Products:');
+        console.log(this.products);
 
-    console.log("Alle Salesorders:");
-    console.log(this.salesOrders);
-  }
-
-  getCustomerByCustomerID(customerUID: string): any {
-    let value = undefined;
-    this.customersData.forEach((val) => {
-      if (val.uid === customerUID) value = val;
-    });
-
-    return value;
-  }
-
-  getNameByCustomerID(customerUID: string): string {
-    return this.getCustomerByCustomerID(customerUID).fullName;
-  }
-
-  getRankingByCustomerID(uid: string) {
-    let customer = this.getCustomerByCustomerID(uid);
-    let value;
-
-    switch (customer?.accountRating) {
-      case 1:
-        value = "excellent";
-        break;
-      case 2:
-        value = "very good";
-        break;
-      case 3:
-        value = "good";
-        break;
-      default:
-        value = "No rating available!";
-        break;
+        console.log('Alle Salesorders:');
+        console.log(this.salesOrders);
     }
 
-    return value;
-  }
+    getCustomerByCustomerID(customerUID: string): any {
+        let value = undefined;
+        this.customersData.forEach((val) => {
+            if (val.uid === customerUID) value = val;
+        });
 
-  getBonusmultiplikator(uid: string) {
-    let customer = this.getCustomerByCustomerID(uid);
-    let value;
-
-    switch (customer?.accountRating) {
-      case 1:
-        value = 0.09;
-        break;
-      case 2:
-        value = 0.06;
-        break;
-      case 3:
-        value = 0.03;
-        break;
-      default:
-        value = 1;
-        break;
+        return value;
     }
 
-    return value;
-  }
-
-  /** Calculation methods ↓ */
-
-  calculateOrderBonus(pricePerUnit: any, quantity: any, bonusmultiplikator: any) {
-    return pricePerUnit * quantity * bonusmultiplikator;
-  }
-
-  calculatePerformanceBonus(targetValue: any, actualValue: any) {
-    let bonus = 0;
-    if (targetValue < actualValue) {
-      bonus = 100;
-    } else if (targetValue == actualValue) {
-      bonus = 50;
-    } else if (targetValue - actualValue == 1) {
-      bonus = 20;
-    } else {
-      //if target+actual>1
-      bonus = 0;
+    getNameByCustomerID(customerUID: string): string {
+        return this.getCustomerByCustomerID(customerUID).fullName;
     }
 
-    return bonus;
-  }
+    getRankingByCustomerID(uid: string) {
+        let customer = this.getCustomerByCustomerID(uid);
+        let value;
 
-  calculateTotalOrderBonus() {
-    let totalBonus = 0;
+        switch (customer?.accountRating) {
+            case 1:
+                value = 'excellent';
+                break;
+            case 2:
+                value = 'very good';
+                break;
+            case 3:
+                value = 'good';
+                break;
+            default:
+                value = 'No rating available!';
+                break;
+        }
 
-    for (let element of document.getElementsByClassName("orderBonus")[Symbol.iterator]()) {
-      totalBonus += parseFloat(element.value);
+        return value;
     }
 
-    return totalBonus;
-  }
+    getBonusmultiplikator(uid: string) {
+        let customer = this.getCustomerByCustomerID(uid);
+        let value;
 
-  calculateTotalPerformanceBonus() {
-    let totalBonus = 0;
+        switch (customer?.accountRating) {
+            case 1:
+                value = 0.09;
+                break;
+            case 2:
+                value = 0.06;
+                break;
+            case 3:
+                value = 0.03;
+                break;
+            default:
+                value = 1;
+                break;
+        }
 
-    for (let element of document.getElementsByClassName("performanceBonus")[Symbol.iterator]()) {
-      totalBonus += parseFloat(element.value);
+        return value;
     }
 
-    return totalBonus;
-  }
+    /** Calculation methods ↓ */
 
-  calculateTotalBonusSum() {
-    let totalBonusSum = 0;
-    for (let element of document.getElementsByClassName("totalBonus")[Symbol.iterator]()) {
-      totalBonusSum += parseFloat(element.value);
-    }
-    return totalBonusSum;
-  }
-
-  showMissingCategories() {
-    let descriptions = [];
-
-    for (let performanceRecord of this.performanceRecordsOfSalesman) {
-      if (performanceRecord.year == this.year) {
-        descriptions.push(performanceRecord.description);
-      }
+    calculateOrderBonus(
+        pricePerUnit: any,
+        quantity: any,
+        bonusmultiplikator: any,
+    ) {
+        return pricePerUnit * quantity * bonusmultiplikator;
     }
 
-    let missingCategories = this.categories.filter((value) => {
-      return !descriptions.includes(value);
-    });
+    calculatePerformanceBonus(targetValue: any, actualValue: any) {
+        let bonus = 0;
+        if (targetValue < actualValue) {
+            bonus = 100;
+        } else if (targetValue == actualValue) {
+            bonus = 50;
+        } else if (targetValue - actualValue == 1) {
+            bonus = 20;
+        } else {
+            //if target+actual>1
+            bonus = 0;
+        }
 
-    return missingCategories.length ? missingCategories.toString() : "none";
-  }
-
-  sendBonusRequest() {
-    this.serviceBonus
-      .postUnverifiedBonusSalary({
-        sid: this.salesman.employeeid,
-        year: this.year,
-        value: this.calculateTotalBonusSum(),
-        remark: "",
-        verified: false,
-      })
-      .subscribe();
-
-    alert(
-      `Successfully sent a bonus-salary request for ${this.salesman.firstname} ${this.salesman.lastname}!`,
-    );
-    void this.router.navigate(["salesman"]);
-  }
-
-  hasAlreadyBonusSalaryForYear(): boolean {
-    let disable = false;
-
-    this.bonuses.forEach((bonus) => {
-      if (bonus.year == this.year) {
-        disable = true;
-      }
-    });
-
-    return disable;
-  }
-
-  private getYearsOfPerformance(): void {
-    let current = this.date.getFullYear();
-    let years = [];
-
-    for (let i = 0; i < 5; i++) {
-      years.push(current - i);
+        return bonus;
     }
 
-    this.interval = years;
-  }
+    calculateTotalOrderBonus() {
+        let totalBonus = 0;
 
-  private getDataOfCustomers() {
-    this.serviceOpenCRX.listCustomers().subscribe((data) => {
-      this.customersData = data;
-      console.log("Alle CustomerData:");
-      console.log(data);
-    });
-  }
+        for (let element of document
+            .getElementsByClassName('orderBonus')
+            [Symbol.iterator]()) {
+            totalBonus += parseFloat(element.value);
+        }
 
-  private getPerformanceRecordOfSalesman() {
-    this.servicePerformanceRecord
-      .getPerformanceRecords(this.salesman.governmentid)
-      .subscribe((data) => {
-        this.performanceRecordsOfSalesman = data;
-      });
-  }
+        return totalBonus;
+    }
+
+    calculateTotalPerformanceBonus() {
+        let totalBonus = 0;
+
+        for (let element of document
+            .getElementsByClassName('performanceBonus')
+            [Symbol.iterator]()) {
+            totalBonus += parseFloat(element.value);
+        }
+
+        return totalBonus;
+    }
+
+    calculateTotalBonusSum() {
+        let totalBonusSum = 0;
+        for (let element of document
+            .getElementsByClassName('totalBonus')
+            [Symbol.iterator]()) {
+            totalBonusSum += parseFloat(element.value);
+        }
+        return totalBonusSum;
+    }
+
+    showMissingCategories() {
+        let descriptions = [];
+
+        for (let performanceRecord of this.performanceRecordsOfSalesman) {
+            if (performanceRecord.year == this.year) {
+                descriptions.push(performanceRecord.description);
+            }
+        }
+
+        let missingCategories = this.categories.filter((value) => {
+            return !descriptions.includes(value);
+        });
+
+        return missingCategories.length ? missingCategories.toString() : 'none';
+    }
+
+    sendBonusRequest() {
+        this.serviceBonus
+            .postUnverifiedBonusSalary({
+                sid: this.salesman.employeeid,
+                year: this.year,
+                value: this.calculateTotalBonusSum(),
+                remark: '',
+                verified: false,
+            })
+            .subscribe();
+
+        alert(
+            `Successfully sent a bonus-salary request for ${this.salesman.firstname} ${this.salesman.lastname}!`,
+        );
+        void this.router.navigate(['salesman']);
+    }
+
+    hasAlreadyBonusSalaryForYear(): boolean {
+        let disable = false;
+
+        this.bonuses.forEach((bonus) => {
+            if (bonus.year == this.year) {
+                disable = true;
+            }
+        });
+
+        return disable;
+    }
+
+    private getYearsOfPerformance(): void {
+        let current = this.date.getFullYear();
+        let years = [];
+
+        for (let i = 0; i < 5; i++) {
+            years.push(current - i);
+        }
+
+        this.interval = years;
+    }
+
+    private getDataOfCustomers() {
+        this.serviceOpenCRX.listCustomers().subscribe((data) => {
+            this.customersData = data;
+            console.log('Alle CustomerData:');
+            console.log(data);
+        });
+    }
+
+    private getPerformanceRecordOfSalesman() {
+        this.servicePerformanceRecord
+            .getPerformanceRecords(this.salesman.governmentid)
+            .subscribe((data) => {
+                this.performanceRecordsOfSalesman = data;
+            });
+    }
 }

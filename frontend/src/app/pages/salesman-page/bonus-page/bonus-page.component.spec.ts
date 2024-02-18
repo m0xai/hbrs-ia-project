@@ -1,24 +1,24 @@
-import {ComponentFixture, TestBed} from "@angular/core/testing";
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {BonusPageComponent} from "./bonus-page.component";
+import { BonusPageComponent } from './bonus-page.component';
 
-describe("BonusComponent", () => {
-  let component: BonusPageComponent;
-  let fixture: ComponentFixture<BonusPageComponent>;
+describe('BonusComponent', () => {
+    let component: BonusPageComponent;
+    let fixture: ComponentFixture<BonusPageComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [BonusPageComponent],
-    }).compileComponents();
-  });
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [BonusPageComponent],
+        }).compileComponents();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(BonusPageComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(BonusPageComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it("should create", () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

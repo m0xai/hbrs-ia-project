@@ -8,25 +8,30 @@ import {environment} from "../../../environments/environment";
  * handles backend communication regarding user accounts
  */
 @Injectable({
-  providedIn: "root",
+    providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {}
 
-  /**
-   * retrieves userdata of currently authenticated user
-   */
-  getOwnUser(): Observable<User> {
-    // use angular's integrated HTTP-client to make a get request; handle the response as a User object :
-    return this.http.get<User>(environment.apiEndpoint + "/api/user", {withCredentials: true});
-  }
+    /**
+     * retrieves userdata of currently authenticated user
+     */
+    getOwnUser(): Observable<User> {
+        // use angular's integrated HTTP-client to make a get request; handle the response as a User object :
+        return this.http.get<User>(environment.apiEndpoint + '/api/user', {
+            withCredentials: true,
+        });
+    }
 
-  /**
-   * retrieves all users
-   * */
-  getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(environment.apiEndpoint + "/api/user/all", {
-      withCredentials: true,
-    });
-  }
+    /**
+     * retrieves all users
+     * */
+    getAllUsers(): Observable<User[]> {
+        return this.http.get<User[]>(
+            environment.apiEndpoint + '/api/user/all',
+            {
+                withCredentials: true,
+            },
+        );
+    }
 }
