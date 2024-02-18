@@ -37,10 +37,8 @@ exports.getSalesmanFromOrangeHRM = async function(id) {
   return await axios.get(`${getOrangeHRMBaseURL()}/api/v1/employee/${id}`, {
     headers: getHeaders()
   })
-    .then(() => {
-      return employee_().then((value) => {
-        return filterSalesman(value.data["data"]);
-      });
+    .then((value) => {
+      return filterSalesman(value.data["data"]);
     });
 };
 
@@ -58,7 +56,7 @@ exports.listSalesmenFromOrangeHRM = async function() {
     });
 };
 
-// Architectural Pattern: Transforming / filtering data
+// Extract and filter Salesman data from OrangeHRM
 function filterSalesman(data) {
   return data["unit"] !== "Sales" ? {unit: "NoSales"} : {
     firstname: data["firstName"],
@@ -97,9 +95,6 @@ function filterAllSalesman(data) {
  * @param bonusSalary
  */
 exports.postApprovedBonusSalaryForSalesman = async function(db, bonusSalary) {
-  let employee_;
-  let accessToken;
-
   // Update given bonus salary in MongoDB
   await db.collection("bonusSalary").updateOne(
     {sid: bonusSalary.sid, year: bonusSalary.year},
@@ -133,7 +128,7 @@ exports.postApprovedBonusSalaryForSalesman = async function(db, bonusSalary) {
  * @param db
  * @param bonusSalary
  */
-exports.postUnverifiedBonusSalaryForSalesman = async function(db, bonusSalary) {
+exports.createUnverifiedBonusSalaryForSalesman = async function(db, bonusSalary) {
   return (await db.collection("bonusSalary").insertOne(bonusSalary)).insertedId; // return unique ID
 };
 
@@ -200,7 +195,7 @@ exports.deleteBonusSalaryOfSalesmanInOrangeHRM = async function(id, year, value)
  * @param sid
  * @param year Year of Bonus Evaluation
  */
-exports.deleteBonusSalaryOfSalesmanInMongoDB = async function(db, sid, year) {
+exports.deleteBonusSalaryOfSalesmanInDB = async function(db, sid, year) {
   await db.collection("bonusSalary").deleteOne({sid: sid, year: year});
 };
 
@@ -219,8 +214,6 @@ exports.getAllSalesman = async function(db) {
  * @param {Integer} id
  * @return {Promise<void>}
  */
-exports.deleteSalesmanFromMongoDB = async function(db, id) {
+exports.deleteSalesmanFromDB = async function(db, id) {
   return db.collection("salesman").deleteOne({id: parseInt(id)});
 };
-;
-
