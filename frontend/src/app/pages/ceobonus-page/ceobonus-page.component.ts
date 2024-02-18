@@ -6,6 +6,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {User} from "../../models/User";
 import {SalesmanService} from "../../services/salesman/salesman.service";
 import {BonusService} from "../../services/bonus/bonus.service";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: "app-ceobonus-page",
@@ -23,11 +24,15 @@ export class CeoBonusComponent implements OnInit {
 
   constructor(
     private bonusService: BonusService,
+    private userService: UserService,
     private salesmanService: SalesmanService,
   ) {}
 
   ngOnInit(): void {
-    this.user = history.state.user;
+    this.userService.getOwnUser().subscribe((val) => {
+      this.user = val;
+      console.log("User Role: ", this.user.role);
+    });
 
     this.getAllSalesman();
     this.getAllBonuses();

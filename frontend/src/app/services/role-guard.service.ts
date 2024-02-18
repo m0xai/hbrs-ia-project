@@ -12,7 +12,7 @@ export class RoleGuardService implements CanActivate {
   private user: User;
   private urls = {
     hr: ["salesman", "salesman,bonus", "salesman,bonus,add-bonus", "ceobonus"],
-    ceo: ["ceobonus", "ceobonus,ceobonusdetail"], // CEO
+    ceo: ["ceobonus", "ceobonus,ceobonusdetail"],
     salesman: [],
   };
 
