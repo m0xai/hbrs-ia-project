@@ -22,7 +22,7 @@ exports.getAccounts = function(req, res) {
 exports.listSalesmenAccounts = (req, res) => {
   openCRXService.listSalesmanAccounts()
     .then(value => res.send(value))
-    .catch(value => res.send(`ERROR CODE ${value}`));
+    .catch(err => res.send(`An error occurred: ${err}`));
 };
 
 /**
@@ -32,7 +32,7 @@ exports.listSalesmenAccounts = (req, res) => {
 exports.getSalesmanAccount = (req, res) => {
   openCRXService.getAccountOfSalesmanFromOpenCRX(req.params.id)
     .then(value => res.send(value))
-    .catch(value => res.send(`ERROR CODE ${value}`));
+    .catch(err => res.send(`An error occurred: ${err}`));
 };
 
 /**
@@ -42,7 +42,7 @@ exports.getSalesmanAccount = (req, res) => {
 exports.listCustomerAccounts = (req, res) => {
   openCRXService.listCustomerAccounts()
     .then(value => res.send(value))
-    .catch(value => res.send(`ERROR CODE ${value}`));
+    .catch(err => res.send(`An error occurred: ${err}`));
 };
 
 /**
@@ -52,7 +52,7 @@ exports.listCustomerAccounts = (req, res) => {
 exports.getCustomerAccount = (req, res) => {
   openCRXService.getCustomerAccountFromOpenCRX(req.params.id)
     .then(value => res.send(value))
-    .catch(value => res.send(`ERROR CODE ${value}`));
+    .catch(err => res.send(`An error occurred: ${err}`));
 };
 
 /**
@@ -62,7 +62,7 @@ exports.getCustomerAccount = (req, res) => {
 exports.getSalesmanAssignedContracts = (req, res) => {
   openCRXService.getSalesmanAssignedContractsFromOpenCRX(req.params.id)
     .then(value => res.send(value))
-    .catch(() => res.status(500).send());
+    .catch((err) => res.status(500).send(err));
 };
 
 /**
@@ -72,7 +72,7 @@ exports.getSalesmanAssignedContracts = (req, res) => {
 exports.getSalesOrders = (req, res) => {
   openCRXService.listSalesOrders()
     .then(value => res.send(value))
-    .catch(value => res.send(`ERROR CODE ${value}`));
+    .catch(err => res.send(`An error occurred: ${err}`));
 };
 
 /**
@@ -82,7 +82,7 @@ exports.getSalesOrders = (req, res) => {
 exports.getSalesOrder = (req, res) => {
   openCRXService.getSalesOrderByContractID(req.params.id)
     .then(value => res.send(value))
-    .catch(value => res.send(`ERROR CODE ${value}`));
+    .catch(err => res.send(`An error occurred: ${err}`));
 };
 
 /**
@@ -102,7 +102,7 @@ exports.getPositionsOfOneSalesOrder = (req, res) => {
 exports.getProducts = (req, res) => {
   openCRXService.listProducts()
     .then(value => res.send(value))
-    .catch(value => res.send(`ERROR CODE ${value}`));
+    .catch(err => res.send(`An error occurred: ${err}`));
 };
 
 /**
@@ -112,5 +112,5 @@ exports.getProducts = (req, res) => {
 exports.getProduct = (req, res) => {
   openCRXService.getProductByID(req.params.id)
     .then(value => res.send(value))
-    .catch(value => res.send(`ERROR CODE ${value}`));
+    .catch(err => res.send(`An error occurred: ${err}`));
 };
