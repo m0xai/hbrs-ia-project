@@ -1,0 +1,69 @@
+<!--Salesman-->
+<nav id="salesman-nav">
+    <button class="menu-salesman" color="primary" mat-button (click)="performAction(button.action)"
+            *ngFor="let button of buttons">{{ button.title }}</button>
+</nav>
+<br>
+<h1>Salesman</h1>
+<p>
+    Here, you can find the Salesman of <b>SmartHoover</b>!
+</p>
+<p>
+    <!--    Below, you can check the list corresponding to their credentials.-->
+    Below, please enter the ID of one salesman to get corresponding data.
+</p>
+
+<mat-form-field appearance="fill">
+    <mat-label>Salesman ID</mat-label>
+    <input [(ngModel)]="id" name="salesman" matInput>
+</mat-form-field>
+
+<button mat-flat-button color="primary" id="searchbutton" (click)="showSalesman( id )">Search</button>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ID</th>
+        <td mat-cell *matCellDef="let element"> {{element['employeeid']}} </td>
+    </ng-container>
+
+    <!-- Firstname Column -->
+    <ng-container matColumnDef="firstname">
+        <th mat-header-cell *matHeaderCellDef> Firstname</th>
+        <td mat-cell *matCellDef="let element"> {{element['firstname']}} </td>
+    </ng-container>
+
+    <!-- Lastname Column -->
+    <ng-container matColumnDef="lastname">
+        <th mat-header-cell *matHeaderCellDef> Lastname</th>
+        <td mat-cell *matCellDef="let element"> {{element['lastname']}} </td>
+    </ng-container>
+
+    <!-- Unit Column -->
+    <ng-container matColumnDef="unit">
+        <th mat-header-cell *matHeaderCellDef> Unit</th>
+        <td mat-cell *matCellDef="let element"> {{element['unit']}} </td>
+    </ng-container>
+
+    <!-- Bonus Column -->
+    <ng-container matColumnDef="bonus">
+        <th mat-header-cell *matHeaderCellDef> Bonus</th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-flat-button color="primary"
+                    [routerLink]="'bonus'" [state]="{ salesman: element }">Show</button>
+        </td>
+    </ng-container>
+
+    <!-- Social Performance Column -->
+    <ng-container matColumnDef="socialperformance">
+        <th mat-header-cell *matHeaderCellDef> Social Performance</th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-flat-button color="primary"
+                    (click)="openDialog( element )">Add / Update</button>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

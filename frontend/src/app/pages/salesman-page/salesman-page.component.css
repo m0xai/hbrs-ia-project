@@ -1,0 +1,34 @@
+#salesman-nav {
+    background-color: #3f51b5;
+    padding: 1em;
+    border-radius: 1em;
+}
+
+/*#salesman-nav a {*/
+/*    color: white;*/
+/*    text-decoration: none;*/
+/*    margin: 0 1em;*/
+/*    padding: 1em;*/
+/*}*/
+
+/*#salesman-nav a:hover {*/
+/*    background: #5765ba;*/
+/*}*/
+
+#salesman-nav {
+    z-index: -1;
+}
+
+#searchbutton {
+    margin: 8px;
+}
+
+table {
+    width: 100%;
+}
+
+.menu-salesman {
+    background: #fff;
+    margin: 0 1rem;
+}
+
