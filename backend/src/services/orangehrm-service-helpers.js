@@ -1,24 +1,24 @@
-const axios = require('axios');
-const qs = require('querystring');
+const axios = require("axios");
+const qs = require("querystring");
 
 let accessToken = null;
 
-const orangeHRMBaseURL = 'https://sepp-hrm.inf.h-brs.de/symfony/web/index.php';
+const orangeHRMBaseURL = "https://sepp-hrm.inf.h-brs.de/symfony/web/index.php";
 exports.getOrangeHRMBaseURL = function() {
   return orangeHRMBaseURL;
 };
 
 const body = qs.stringify({
-  client_id: 'api_oauth_id',
-  client_secret: 'oauth_secret',
-  grant_type: 'password',
-  username: 'zopcuk',
-  password: '*Safb02da42Demo$'
+  client_id: "api_oauth_id",
+  client_secret: "oauth_secret",
+  grant_type: "password",
+  username: "zopcuk",
+  password: "*Safb02da42Demo$"
 });
 const config = {
   headers: {
-    'Content-Type': 'application/x-www-form-urlencoded',
-    'Accept': 'application/json'
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Accept": "application/json"
   }
 };
 
@@ -32,14 +32,15 @@ async function sendLoginRequest() {
 }
 
 
-exports.login = async function() {
+exports.loginOrangeHRM = async function() {
   try {
     const response = await sendLoginRequest();
     console.log(response.data);
-    setAccessToken(response.data['access_token']);
+    setAccessToken(response.data["access_token"]);
     return response.data;
   } catch (e) {
     console.error(e);
+    throw e;
   }
 };
 
