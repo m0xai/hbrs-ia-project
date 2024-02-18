@@ -1,0 +1,47 @@
+<!--Bonuses-->
+<h1>Bonus</h1>
+<div id='bonusArea'>
+    <div id='bonusinfo-area'>
+        <table _ngcontent-qps-c96='' class='ng-star-inserted' id='bonusinfo'>
+            <tr _ngcontent-qps-c96=''>
+                <th _ngcontent-qps-c96=''>ID</th>
+                <td _ngcontent-qps-c96=''>{{ bonus.sid }}</td>
+            </tr>
+            <tr _ngcontent-qps-c96=''>
+                <th _ngcontent-qps-c96=''>Firstname</th>
+                <td _ngcontent-qps-c96=''>{{ salesman.firstname }}</td>
+            </tr>
+            <tr _ngcontent-qps-c96=''>
+                <th _ngcontent-qps-c96=''>Lastname</th>
+                <td _ngcontent-qps-c96=''>{{ salesman.lastname }}</td>
+            </tr>
+            <tr _ngcontent-qps-c96=''>
+                <th _ngcontent-qps-c96=''>Year</th>
+                <td _ngcontent-qps-c96=''>{{ bonus.year }}</td>
+            </tr>
+            <tr _ngcontent-qps-c96=''>
+                <th _ngcontent-qps-c96=''>Bonus value</th>
+                <td _ngcontent-qps-c96=''>{{ bonus.value }}</td>
+            </tr>
+        </table>
+        <br>
+    </div>
+
+    <div class='area' id='remark-area'>
+        <h2>Remark</h2>
+        <textarea [disabled]="!(this.user.role === 'ceo')" id='remark-textfield' matInput
+                  placeholder='Please enter a remark'></textarea>
+    </div>
+
+    <div class='area' id='confirm-area'>
+        <button (click)='this.deleteUnverifiedBonus()' [disabled]="!(this.user.role ===
+        'ceo')" color='warn' mat-flat-button>
+            Decline
+        </button>
+        <button (click)='this.verifyAndSaveBonus()' [disabled]="!(this.user.role === 'ceo')" color='primary'
+                mat-flat-button
+                style='float: right;'>Accept request
+        </button>
+    </div>
+</div>
+
