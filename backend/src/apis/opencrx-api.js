@@ -6,10 +6,7 @@ const openCRXService = require("../services/opencrx-service");
  * */
 exports.getAccounts = function(req, res) {
   openCRXService.getAccounts().then(resp => {
-    const legalAccounts = resp.objects.filter((account) => {
-      return account["@type"] == "org.opencrx.kernel.account1.LegalEntity";
-    });
-    res.send(legalAccounts);
+    res.send(resp);
   }).catch(err => {
     res.status(500).send(err);
   });

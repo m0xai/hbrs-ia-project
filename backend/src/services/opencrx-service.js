@@ -1,5 +1,4 @@
 const axios = require("axios");
-const {getAccounts} = require("../apis/opencrx-api");
 
 // OrangeHRM API endpoint for retrieving employees
 const baseUrl = "https://sepp-crm.inf.h-brs.de/opencrx-rest-CRX";
@@ -30,48 +29,48 @@ exports.getAccounts = async function() {
 
   const accounts = contacts.data.objects;
 
-  const salesmanAccounts = [];
-  const customerAccounts = [];
+  let salesmanAccounts = [],
+    customerAccounts = [];
 
-  accounts.map((account) => {
-    // If type of account objects are LegalEntity
-    if (account["@type"].endsWith("LegalEntity")) {
+  accounts.map((value) => {
+    // Check if @type LegalEntity
+    if (value["@type"].endsWith("LegalEntity")) {
       const {
         accountRating,
         fullName
-      } = account;
+      } = value;
 
       customerAccounts.push({
         fullName,
         accountRating,
-        uid: account["identity"].split("account/")[1],
-        type: account["@type"].split("account1.")[1]
+        uid: value["identity"].split("account/")[1],
+        type: value["@type"].split("account1.")[1]
       });
     }
 
     // Check if @jobRole exists, then check if its equal 'Sales'
-    if (account["department"] && account["department"] === "Sales") {
+    if (value["department"] && value["department"] === "Sales") {
       const {
         firstName,
         middleName,
         lastName,
         governmentId,
         department
-      } = account;
+      } = value;
 
       salesmanAccounts.push({
         firstName,
         middleName,
         lastName,
         governmentId,
-        uid: account["identity"].split("account/")[1],
-        type: account["@type"].split("account1.")[1],
+        uid: value["identity"].split("account/")[1],
+        type: value["@type"].split("account1.")[1],
         department
       });
     }
   });
 
-  return {salesmen: salesmanAccounts, customers: customerAccounts};
+  return [salesmanAccounts, customerAccounts];
 };
 
 /**
@@ -81,7 +80,7 @@ exports.getAccounts = async function() {
 exports.listCustomerAccounts = async function() {
   const accounts = await this.getAccounts();
 
-  return accounts.customers;
+  return accounts[1];
 };
 
 /**
@@ -91,7 +90,7 @@ exports.listCustomerAccounts = async function() {
 exports.listSalesmanAccounts = async function() {
   let accounts = await this.getAccounts();
 
-  return accounts.salesmen;
+  return accounts[0];
 };
 
 /**
