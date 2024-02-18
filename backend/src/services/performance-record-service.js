@@ -1,7 +1,7 @@
 /**
  * List all performancerecord from database
  * @param db source database
- * @return {Promise<Performancerecord>}
+ * @return {Promise<Record>}
  */
 exports.listPerformanceRecords = async function(db) {
   return db.collection("performancerecord").find({}).toArray();
@@ -21,7 +21,7 @@ exports.getPerformanceRecord = async function(db, sid) {
 /**
  * Create new performanceRecord in database
  * @param db target database
- * @param {PerformanceRecord} performanceRecord new performanceRecord
+ * @param {Record} performanceRecord new performanceRecord
  * @return {Promise<any>}
  */
 exports.updatePerformanceRecord = async function(db, performanceRecord) {
