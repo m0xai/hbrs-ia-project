@@ -23,7 +23,7 @@ export class EmployeeListPageComponent implements OnInit {
     });
   }
 
-  onSearchInput(val) {
+  onSearchInput(val: string) {
     console.log("Searched id: ", val);
   }
 }

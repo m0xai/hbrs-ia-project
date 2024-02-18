@@ -13,13 +13,14 @@ export class MenuBarComponent implements OnInit {
   user: User;
 
   /*
-            This array holds the definition of the menu's buttons.
-           */
-  buttons = [
-    {title: "Welcome", routerLink: ""}, // the tile is the text on the button, the routerLink specifies, where it will navigate
-    {title: "Example", routerLink: "example"},
-    {title: "Employees", routerLink: "employees"},
-  ];
+                      This array holds the definition of the menu's buttons.
+                     */
+  // buttons = [
+  //   {title: "Welcome", routerLink: ""}, // the tile is the text on the button, the routerLink specifies, where it will navigate
+  //   {title: "Example", routerLink: "example"},
+  //   {title: "Employees", routerLink: "employees"},
+  // ];
+  buttons: {title: string; routerLink: string; hasAccess: boolean; user: User}[] = [];
 
   /**
    * The following parameters specify objects, which will be provided by dependency injection
@@ -50,8 +51,29 @@ export class MenuBarComponent implements OnInit {
    * fetches information about logged-in user
    */
   fetchUser(): void {
-    this.userService.getOwnUser().subscribe((user): void => {
-      this.user = user;
-    });
+    this.userService.getOwnUser().subscribe(
+      (user): void => {
+        this.user = user;
+      },
+      () => {},
+      () => {
+        console.log(this.user);
+        this.buttons.push(
+          {title: "Home", routerLink: "", hasAccess: true, user: this.user},
+          {
+            title: "Salesman",
+            routerLink: "salesman",
+            hasAccess: this.user.isAdmin || this.user.role === "hr",
+            user: this.user,
+          },
+          {
+            title: "Bonus",
+            routerLink: "ceobonus",
+            hasAccess: this.user.isAdmin || this.user.role === "ceo" || this.user.role === "hr",
+            user: this.user,
+          },
+        );
+      },
+    );
   }
 }

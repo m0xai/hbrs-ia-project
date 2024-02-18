@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from "@angular/core";
-import {ActivatedRoute, Router} from "@angular/router";
 import {EmployeeService} from "../../services/employee/employee.service";
 import {Employee} from "../../models/Employee";
 import {NotifyService} from "../../services/_core/notify.service";
@@ -18,8 +17,6 @@ export class EmployeeDetailsComponent implements OnInit {
   reviews: Review[] = [];
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
     private notifyService: NotifyService,
     private employeeService: EmployeeService,
     private reviewService: ReviewService,

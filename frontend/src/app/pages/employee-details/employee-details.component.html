@@ -9,15 +9,11 @@
                 <td *matCellDef='let element' mat-cell> {{ element.period }}</td>
             </ng-container>
 
-            <!-- Name Column -->
             <ng-container matColumnDef='opinionSum'>
                 <th *matHeaderCellDef mat-header-cell> Summary</th>
                 <td *matCellDef='let element' mat-cell> {{ element.opinionSum }}</td>
             </ng-container>
 
-            <!-- Weight Column -->
-
-            <!-- Symbol Column -->
             <ng-container matColumnDef='remarks'>
                 <th *matHeaderCellDef mat-header-cell> Remarks</th>
                 <td *matCellDef='let element' mat-cell> {{ element.remarks }}</td>

@@ -90,9 +90,6 @@ export class AuthService {
       );
   }
 
-  /**
-   *
-   */
   logout(): Observable<HttpResponse<any>> {
     return this.http
       .delete(environment.apiEndpoint + "/api/login", {
