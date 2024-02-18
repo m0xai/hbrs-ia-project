@@ -20,22 +20,48 @@ router.get("/people", checkAuthorization(), peopleDemoApi.getPeople);
 const openCRMApi = require("../apis/opencrx-api");
 router.get("/accounts", openCRMApi.getAccounts);
 
-const reportsApi = require("../apis/report-api");
-router.get("/reviews/:reportId", checkAuthorization(), reportsApi.getReport);
-router.get("/reviews", checkAuthorization(), reportsApi.list);
-router.post("/reviews", checkAuthorization(), reportsApi.create);
 
-const employeeApi = require("../apis/employee-api");
-router.get("/employees/:employeeId", checkAuthorization(), employeeApi.get);
-router.get("/employees", checkAuthorization(), employeeApi.list);
-router.post("/employees", checkAuthorization(), employeeApi.create);
-router.put("/employees/:employeeId", checkAuthorization(), employeeApi.update);
-router.delete("/employees/:employeeId", checkAuthorization(), employeeApi.delete);
+/** Bravo6 App Services API */
+const performanceRecordAPI = require("../apis/performance-record-api");
+const salesmanAPI = require("../apis/salesman-api");
+const bonusAPI = require("../apis/bonus-calculate-api");
+const ordersAPI = require("../apis/opencrx-api");
 
-const orangeHRMApi = require("../apis/orangehrm-api");
-router.post("/orange/login", checkAuthorization(), orangeHRMApi.login);
-router.get("/orange/employees", checkAuthorization(), orangeHRMApi.getAllEmployees);
-router.get("/orange/employees/:id", checkAuthorization(), orangeHRMApi.getEmployee);
-router.put("/orange/employees/:id", checkAuthorization(), orangeHRMApi.updateEmployee);
+// Salesman
+router.post("/salesman/create/", salesmanAPI.addSalesman);
+router.get(`/salesman`, salesmanAPI.getSalesmen);
+router.get(`/salesman/:id`, salesmanAPI.getSalesman);
+router.delete("/salesman/delete/:id", salesmanAPI.deleteSalesman);
+
+// Bonus-Salary
+router.post("/salesman/:id/bonussalary", bonusAPI.postVerifiedBonusSalary);
+router.post("/salesman/:id/unverified/bonussalary", bonusAPI.createUnverifiedBonusSalary);
+router.get(`/salesman/:id/bonussalary`, bonusAPI.getBonusOfSalesman);
+router.get(`/bonussalary`, bonusAPI.getBonuses);
+router.get(`/bonussalary/:id`, bonusAPI.getBonusOfSalesmanFromMongoDB);
+router.delete("/salesman/:id/bonussalary/orangeHRM", bonusAPI.deleteBonusFromOrangeHRM);
+router.delete("/salesman/:id/bonussalary/mongoDB", bonusAPI.deleteBonusFromMongoDB);
+
+// Performance Record
+router.post("/performancerecord/create", performanceRecordAPI.addOrUpdatePerformanceRecord);
+router.get("/performancerecord/:id", performanceRecordAPI.getPerformanceRecord);
+router.get("/performancerecord", performanceRecordAPI.getPerformanceRecords);
+router.delete("/performancerecord/delete/:id", performanceRecordAPI.deletePerformanceRecord);
+
+// Orders Evaluation
+// Accounts
+router.get("/orders/accounts", ordersAPI.getAccounts);
+router.get("/orders/accounts/salesman", ordersAPI.listSalesmenAccounts);
+router.get("/orders/accounts/customer", ordersAPI.listCustomerAccounts);
+router.get("/orders/accounts/salesman/:id", ordersAPI.getSalesmanAccount);
+router.get("/orders/accounts/customer/:id", ordersAPI.getCustomerAccount);
+router.get("/orders/accounts/salesman/:id/contracts", ordersAPI.getSalesmanAssignedContracts);
+// SalesOrders
+router.get("/orders/salesOrder/", ordersAPI.getSalesOrders);
+router.get("/orders/salesOrder/:id", ordersAPI.getSalesOrder);
+router.get("/orders/salesOrder/:id/position", ordersAPI.getPositionsOfOneSalesOrder);
+// Products
+router.get("/orders/products", ordersAPI.getProducts);
+router.get("/orders/products/:id", ordersAPI.getProduct);
 
 module.exports = router;
