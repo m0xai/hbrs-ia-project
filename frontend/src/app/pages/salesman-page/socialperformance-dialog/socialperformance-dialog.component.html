@@ -1,0 +1,54 @@
+<h1 mat-dialog-title>Add Social Performance</h1>
+<div mat-dialog-content>
+    <p>Name: {{ data.firstname }} {{ data.lastname }}</p>
+    <mat-form-field appearance="fill">
+        <mat-label>Year of Performance</mat-label>
+        <mat-select [(value)]="year" class="yearofperformance" (selectionChange)="resetValues()">
+            <mat-option value="{{ item }}" *ngFor="let item of interval">{{ item }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <div *ngIf="year">
+
+        <mat-form-field appearance="fill" class="value" id="description">
+            <mat-label>Description</mat-label>
+            <mat-select [(value)]="description" (selectionChange)="getTargetAndActualValue(year, description)">
+                <mat-option value="Leadership Competence">Leadership Competence</mat-option>
+                <mat-option value="Openness to Employee">Openness to Employee</mat-option>
+                <mat-option value="Social Behaviour to Employee">Social Behaviour to Employee</mat-option>
+                <mat-option value="Attitude towards Client">Attitude towards Client</mat-option>
+                <mat-option value="Communication Skills">Communication Skills</mat-option>
+                <mat-option value="Integrity to Company">Integrity to Company</mat-option>
+            </mat-select>
+        </mat-form-field><br>
+
+        <mat-form-field appearance="fill" class="value" id="target">
+            <mat-label>Target Value</mat-label>
+            <mat-select [(value)]="targetValue">
+                <mat-option value="1">1</mat-option>
+                <mat-option value="2">2</mat-option>
+                <mat-option value="3">3</mat-option>
+                <mat-option value="4">4</mat-option>
+                <mat-option value="5">5</mat-option>
+            </mat-select>
+        </mat-form-field><br>
+
+        <mat-form-field appearance="fill" class="value" id="actual">
+            <mat-label>Actual Value</mat-label>
+            <mat-select [(value)]="actualValue">
+                <mat-option value="1">1</mat-option>
+                <mat-option value="2">2</mat-option>
+                <mat-option value="3">3</mat-option>
+                <mat-option value="4">4</mat-option>
+                <mat-option value="5">5</mat-option>
+            </mat-select>
+        </mat-form-field><br>
+
+    </div>
+
+</div>
+
+<div mat-dialog-actions id="actions">
+    <button mat-flat-button color="primary" (click)="this.dialogRef.close()">Close</button>
+    <button mat-flat-button color="primary" *ngIf="year && actualValue && targetValue && description" (click)="savePerformanceRecord()">Save</button>
+</div>
+
