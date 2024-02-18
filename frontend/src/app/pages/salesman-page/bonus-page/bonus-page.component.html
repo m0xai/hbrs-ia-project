@@ -1,0 +1,38 @@
+<!-- Bonus Salary Page -->
+<!--<button mat-flat-button color="primary" [routerLink]="'salesman'">Back</button>-->
+<h1 id="title">Bonussalary</h1>
+<p>
+    Here, you can find the bonus salary of <b>{{ salesman.firstname }} {{ salesman.lastname }}</b>!
+</p>
+<p>
+    You can add another bonus for the corresponding year →
+    <button mat-button class="button" id="button" [routerLink]="'add-bonus'" [state]="{ salesman: salesman, salesOrders: salesOrdersData, products: products, bonuses: bonuses }" disabled>Add bonus</button>
+    <span id="loadingInfo"></span>
+</p>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!-- Year Column -->
+    <ng-container matColumnDef="year">
+        <th mat-header-cell *matHeaderCellDef> Year</th>
+        <td mat-cell *matCellDef="let element"> {{element['year']}} </td>
+    </ng-container>
+
+    <!-- Value Column -->
+    <ng-container matColumnDef="value">
+        <th mat-header-cell *matHeaderCellDef> Value</th>
+        <td mat-cell *matCellDef="let element"> {{element['value']}} </td>
+    </ng-container>
+
+    <!-- Delete Column -->
+    <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef> Delete</th>
+        <td *matCellDef="let element">
+            <button mat-mini-fab class="button" (click)="deleteBonusOfSalesman( this.salesman.employeeid, element.year, element.value )"><mat-icon>delete_outline</mat-icon></button>
+        </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
