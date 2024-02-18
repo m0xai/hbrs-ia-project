@@ -78,7 +78,7 @@ exports.getAccounts = async function() {
  * --
  * @return {Promise<*>}
  * */
-exports.getCustomerAccounts = async function() {
+exports.listCustomerAccounts = async function() {
   const accounts = await this.getAccounts();
 
   return accounts.customers;
@@ -88,7 +88,7 @@ exports.getCustomerAccounts = async function() {
  * --
  * @return {Promise<*>}
  * */
-exports.getSalesmanAccounts = async function() {
+exports.listSalesmanAccounts = async function() {
   let accounts = await this.getAccounts();
 
   return accounts.salesmen;
@@ -98,7 +98,7 @@ exports.getSalesmanAccounts = async function() {
  * --
  * @return {Promise<*>}
  * */
-exports.getAccountOfCustomerFromOpenCRX = async function(uid) {
+exports.getCustomerAccountFromOpenCRX = async function(uid) {
   const contact = await axios.get(
     `${baseUrl}/org.opencrx.kernel.account1/provider/CRX/segment/Standard/account/${uid}`,
     config
@@ -148,7 +148,7 @@ exports.getAccountOfSalesmanFromOpenCRX = async function(uid) {
  * --
  * @return {Promise<*>}
  * */
-exports.getAllSalesOrders = async function() {
+exports.listSalesOrders = async function() {
   const salesOrder = await axios.get(
     `${baseUrl}/org.opencrx.kernel.contract1/provider/CRX/segment/Standard/salesOrder`,
     config
@@ -215,7 +215,7 @@ exports.getSalesOrderByContract = async function(contractId) {
  * @param governmentid
  */
 exports.getSalesOrdersBySalesRepGovernment = async function(governmentid) {
-  const orders = await this.getAllSalesOrders();
+  const orders = await this.listSalesOrders();
 
   return orders.filter(order => order.salesRep === governmentid);
 };
@@ -225,8 +225,8 @@ exports.getSalesOrdersBySalesRepGovernment = async function(governmentid) {
  * --
  * @return {Promise<*>}
  * */
-exports.getSalesOrdersByContractID = async function(contractID) {
-  const orders = await this.getAllSalesOrders();
+exports.getSalesOrderByContractID = async function(contractID) {
+  const orders = await this.listSalesOrders();
 
   return orders.filter(order => order.contractID === contractID);
 };
@@ -235,7 +235,7 @@ exports.getSalesOrdersByContractID = async function(contractID) {
  * --
  * @return {Promise<*>}
  * */
-exports.getAssignedContractsOfSalesmanFromOpenCRX = async function(salesmanUID) {
+exports.getSalesmanAssignedContractsFromOpenCRX = async function(salesmanUID) {
   const contracts = await axios.get(
     `${baseUrl}/org.opencrx.kernel.account1/provider/CRX/segment/Standard/account/${salesmanUID}/assignedContract`,
     config
@@ -308,7 +308,7 @@ exports.getPositionsOfSalesOrder = async function(salesOrderID) {
  * --
  * @return {Promise<*>}
  * */
-exports.getAllProducts = async function() {
+exports.listProducts = async function() {
   const request = await axios.get(
     `${baseUrl}/org.opencrx.kernel.product1/provider/CRX/segment/Standard/product`,
     config
@@ -341,7 +341,7 @@ exports.getAllProducts = async function() {
  * @return {Promise<*>}
  * @param productID
  * */
-exports.getProductByProductID = async function(productID) {
+exports.getProductByID = async function(productID) {
   const request = await axios.get(
     `${baseUrl}/org.opencrx.kernel.product1/provider/CRX/segment/Standard/product/${productID}`,
     config
