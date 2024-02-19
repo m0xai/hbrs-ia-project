@@ -21,7 +21,7 @@ export class SalesmanService {
 
     getAllSalesman(): Observable<Salesman[]> {
         return this.http.get<Salesman[]>(
-            environment.apiEndpoint + `/api/salesman`,
+            environment.apiEndpoint + '/api/salesman',
             {
                 withCredentials: true,
             },

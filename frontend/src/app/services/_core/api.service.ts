@@ -13,7 +13,7 @@ export class ApiService<T extends BaseModel<T>> {
 
     constructor(
         private httpClient: HttpClient,
-        public tConstructor: { new (m: Partial<T>, ...args: unknown[]): T },
+        public tConstructor: new (m: Partial<T>, ...args: unknown[]) => T,
         private apiPath: string,
     ) {
         this.apiURL = this.apiBase + apiPath;

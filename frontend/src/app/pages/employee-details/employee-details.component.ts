@@ -3,7 +3,6 @@ import { EmployeeService } from '../../services/employee/employee.service';
 import { Employee } from '../../models/Employee';
 import { NotifyService } from '../../services/_core/notify.service';
 import { ReviewService } from '../../services/review/review.service';
-import { Review } from '../../models/Review';
 
 @Component({
     selector: 'app-employee-details',
@@ -13,8 +12,7 @@ import { Review } from '../../models/Review';
 export class EmployeeDetailsComponent implements OnInit {
     employee: Employee | null = null;
     displayedColumns = ['period', 'opinionSum', 'remarks'];
-    employeeId: string = '';
-    reviews: Review[] = [];
+    employeeId = '';
 
     constructor(
         private notifyService: NotifyService,
@@ -29,7 +27,7 @@ export class EmployeeDetailsComponent implements OnInit {
     ngOnInit() {
         this.fetchEmployee();
         this.reviewService.list().subscribe({
-            next: (value) => (this.reviews = value),
+            next: (value) => value,
             error: (err) => console.info(err),
         });
     }

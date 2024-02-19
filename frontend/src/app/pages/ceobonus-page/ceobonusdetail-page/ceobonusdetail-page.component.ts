@@ -22,9 +22,9 @@ export class CeoBonusDetailComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.bonus = history.state.bonus;
-        this.salesman = history.state.salesman;
-        this.user = history.state.user;
+        this.bonus = history?.state.bonus;
+        this.salesman = history?.state.salesman;
+        this.user = history?.state.user;
 
         console.log(this.user);
     }

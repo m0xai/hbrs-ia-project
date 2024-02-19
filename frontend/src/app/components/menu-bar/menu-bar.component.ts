@@ -60,8 +60,8 @@ export class MenuBarComponent implements OnInit {
             (user): void => {
                 this.user = user;
             },
-            () => {},
-            () => {
+            (): void => {},
+            (): void => {
                 console.log(this.user);
                 this.buttons.push(
                     {

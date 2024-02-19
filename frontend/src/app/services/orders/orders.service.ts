@@ -25,7 +25,7 @@ export class OpenCRXService {
 
     listCustomers(): Observable<any[]> {
         return this.http.get<any[]>(
-            environment.apiEndpoint + `/api/orders/accounts/customer`,
+            environment.apiEndpoint + '/api/orders/accounts/customer',
             {
                 withCredentials: true,
             },
@@ -34,7 +34,7 @@ export class OpenCRXService {
 
     listSalesmen(): Observable<any[]> {
         return this.http.get<any[]>(
-            environment.apiEndpoint + `/api/orders/accounts/salesman`,
+            environment.apiEndpoint + '/api/orders/accounts/salesman',
             {
                 withCredentials: true,
             },
@@ -69,7 +69,7 @@ export class OpenCRXService {
 
     listProducts(): Observable<object> {
         return this.http.get<object>(
-            environment.apiEndpoint + `/api/orders/products`,
+            environment.apiEndpoint + '/api/orders/products',
             {
                 withCredentials: true,
             },
@@ -77,7 +77,7 @@ export class OpenCRXService {
     }
 
     getSalesOrderData(contractID: string | undefined): Observable<object> {
-        if (!contractID) return;
+        if (!contractID) {return; }
 
         return this.http.get<object>(
             environment.apiEndpoint + `/api/orders/salesOrder/${contractID}`,

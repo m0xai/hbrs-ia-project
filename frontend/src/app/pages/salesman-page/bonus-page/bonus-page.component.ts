@@ -66,8 +66,8 @@ export class BonusPageComponent implements OnInit {
 
     private getLoadingInfo() {
         this.loadingInfo.innerHTML = this.button.hasAttribute('disabled')
-            ? `<i>  loading data...</i>`
-            : `<i>  data loaded ✅</i>`;
+            ? '<i>  loading data...</i>'
+            : '<i>  data loaded ✅</i>';
     }
 
     private fetchVerifiedBonusData(id: string | number): void {
@@ -102,9 +102,10 @@ export class BonusPageComponent implements OnInit {
     private async collectDataFromSalesman() {
         this.serviceOpenCRX.listAccounts().subscribe(
             (data) => {
-                this.salesmanAccount = data[0].filter((value) => {
-                    return value['governmentId'] === this.salesman.governmentid;
-                })[0];
+                this.salesmanAccount = data[0].filter(
+                    (value) =>
+                        value.governmentId === this.salesman.governmentid,
+                )[0];
                 console.log('SA: ', this.salesmanAccount);
             },
             (error) => {},
@@ -182,13 +183,13 @@ export class BonusPageComponent implements OnInit {
             .subscribe(
                 (data) => {
                     // @ts-ignore
-                    let data_: object[] = data;
+                    let data_: any[] = data;
 
                     // If [{A}] then [{A},{}]
                     // If [{B}] then [{},{B}]
                     // If [{A},{B}] then [{A},{B}]
                     // If [] then [{},{}]
-                    for (let [index, product] of this.products.entries()) {
+                    for (const [index, product] of this.products.entries()) {
                         // @ts-ignore
                         if (
                             !data_[index] ||
@@ -200,7 +201,7 @@ export class BonusPageComponent implements OnInit {
                             } else if (index) {
                                 data_.push({});
                             } else {
-                                let tmp = [{}, data_.pop()];
+                                const tmp = [{}, data_.pop()];
                                 data_ = tmp;
                             }
                         }
@@ -243,7 +244,7 @@ export class BonusPageComponent implements OnInit {
     }
 
     private setInfoForNoData() {
-        this.loadingInfo.innerHTML = `<i>  No data available! ❌</i>`;
+        this.loadingInfo.innerHTML = '<i>  No data available! ❌</i>';
         this.button.style.cursor = 'no-drop';
     }
 }

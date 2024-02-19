@@ -74,7 +74,7 @@ export class SocialperformanceDialogComponent implements OnInit {
             }
         });
 
-        if (!hasValues) this.targetValue = this.actualValue = null;
+        if (!hasValues) {this.targetValue = this.actualValue = null; }
     }
 
     resetValues() {
@@ -82,8 +82,8 @@ export class SocialperformanceDialogComponent implements OnInit {
     }
 
     private getYearsOfPerformance(): void {
-        let current = this.date.getFullYear();
-        let years = [];
+        const current = this.date.getFullYear();
+        const years = [];
 
         for (let i = 0; i < 5; i++) {
             years.push(current - i);

@@ -1,8 +1,8 @@
-import {Injectable} from "@angular/core";
-import {Router} from "@angular/router";
-import {AuthService} from "./auth.service";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
+import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {AuthService} from './auth.service';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 /**
  * this service implements the CanActivate interface

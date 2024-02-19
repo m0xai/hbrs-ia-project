@@ -25,7 +25,7 @@ export class NotifyService {
 
     openSnackBar(message: string, className = '', duration = 5000) {
         this.snackBar.open(message, null, {
-            duration: duration,
+            duration,
             panelClass: [className],
             verticalPosition: 'top',
         });

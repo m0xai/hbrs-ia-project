@@ -20,8 +20,8 @@ export class AuthInterceptor implements HttpInterceptor {
     ): Observable<HttpEvent<unknown>> {
         return next.handle(request).pipe(
             tap(
-                (event: HttpEvent<any>) => {},
-                (err: any) => {
+                (event: HttpEvent<any>): void => {},
+                (err: any): void => {
                     if (err instanceof HttpErrorResponse) {
                         if (err.status === 401) {
                             // TODO: Navigate user to login page, if user already in Login Page, show error Banner

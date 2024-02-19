@@ -40,7 +40,7 @@ export class BonusService {
 
     getAllBonuses(): Observable<Bonus[]> {
         return this.http.get<Bonus[]>(
-            environment.apiEndpoint + `/api/bonussalary`,
+            environment.apiEndpoint + '/api/bonussalary',
             {
                 withCredentials: true,
             },
@@ -51,14 +51,14 @@ export class BonusService {
         id: number | string,
         year: number | string,
     ): Observable<ArrayBuffer> {
+        // @ts-ignore
         return this.http.delete<{
             year: number | string;
         }>(
             environment.apiEndpoint + `/api/salesman/${id}/bonussalary/mongoDB`,
-            // @ts-ignore
             {
-                responseType: 'text',
-                body: { year: year },
+                responseType: 'json',
+                body: { year },
                 withCredentials: true,
             },
         );
@@ -80,15 +80,15 @@ export class BonusService {
         year: number | string,
         value: number | string,
     ): Observable<ArrayBuffer> {
+        // @ts-ignore
         return this.http.delete<{
             year: number | string;
             value: number | string;
         }>(
             environment.apiEndpoint +
                 `/api/salesman/${id}/bonussalary/orangeHRM`,
-            // @ts-ignore
             {
-                responseType: 'text',
+                responseType: 'json',
                 body: { year: year, value: value },
                 withCredentials: true,
             },

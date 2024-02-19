@@ -36,7 +36,7 @@ export class CeoBonusComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.userService.getOwnUser().subscribe((val) => {
+        this.userService.getOwnUser().subscribe((val): void => {
             this.user = val;
             console.log('User Role: ', this.user.role);
         });
@@ -45,11 +45,11 @@ export class CeoBonusComponent implements OnInit {
         this.getAllBonuses();
     }
 
-    getDataFromSalesman(employeeid: number, property: string) {
-        let data;
+    getDataFromSalesman(employeeid: number, property: string): object {
+        let data: object;
 
-        this.allSalesman.forEach((salesman) => {
-            if (salesman.employeeid == employeeid) {
+        this.allSalesman.forEach((salesman): void => {
+            if (salesman.employeeid === employeeid) {
                 data = salesman[property];
             }
         });
@@ -57,11 +57,11 @@ export class CeoBonusComponent implements OnInit {
         return data;
     }
 
-    getSalesmanWithID(employeeid: number) {
-        let data;
+    getSalesmanWithID(employeeid: number): Salesman {
+        let data: Salesman;
 
-        this.allSalesman.forEach((salesman) => {
-            if (salesman.employeeid == employeeid) {
+        this.allSalesman.forEach((salesman): void => {
+            if (salesman.employeeid === employeeid) {
                 data = salesman;
             }
         });
@@ -69,23 +69,23 @@ export class CeoBonusComponent implements OnInit {
         return data;
     }
 
-    private getAllBonuses() {
+    private getAllBonuses(): void {
         this.bonusService.getAllBonuses().subscribe(
-            (data) => {
-                let unverifiedBonuses = data.filter((value) => {
-                    return !value.verified;
-                });
+            (data): void => {
+                const unverifiedBonuses = data.filter(
+                    (value): boolean => !value.verified,
+                );
                 this.dataSource = new MatTableDataSource<Bonus>(
                     unverifiedBonuses,
                 );
             },
-            () => {},
-            () => {},
+            (): void => {},
+            (): void => {},
         );
     }
 
-    private getAllSalesman() {
-        this.salesmanService.getAllSalesman().subscribe((data) => {
+    private getAllSalesman(): void {
+        this.salesmanService.getAllSalesman().subscribe((data): void => {
             this.allSalesman = data;
         });
     }

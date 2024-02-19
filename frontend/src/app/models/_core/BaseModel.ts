@@ -11,7 +11,7 @@ export abstract class BaseModel<T> implements IResource {
         }
     }
 
-    static isEqual(objA: any, objB: any): boolean {
+    static isEqual(objA: object, objB: object): boolean {
         const keysA = Object.keys(objA);
         const keysB = Object.keys(objB);
 
@@ -31,7 +31,7 @@ export abstract class BaseModel<T> implements IResource {
     }
 
     getId(): number {
-        return this.id!;
+        return this.id;
     }
 
     public toJson(): any {

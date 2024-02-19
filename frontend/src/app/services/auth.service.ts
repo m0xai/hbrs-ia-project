@@ -1,9 +1,9 @@
-import {Injectable} from "@angular/core";
-import {Credentials} from "../models/Credentials";
-import {HttpClient, HttpResponse} from "@angular/common/http";
-import {Observable, Observer} from "rxjs";
-import {map, tap} from "rxjs/operators";
-import {environment} from "../../../environments/environment";
+import {Injectable} from '@angular/core';
+import {Credentials} from '../models/Credentials';
+import {HttpClient, HttpResponse} from '@angular/common/http';
+import {Observable, Observer} from 'rxjs';
+import {map, tap} from 'rxjs/operators';
+import {environment} from '../../../environments/environment';
 
 /**
  * Services specify logic, which is instantiated singularly -> it is shared between components

@@ -28,8 +28,8 @@ export class RoleGuardService implements CanActivate {
     ) {}
 
     canActivate(router: ActivatedRouteSnapshot): Observable<boolean> {
-        let url: string = router.url.toString();
-        let isAllowedToEnter: boolean = true;
+        const url: string = router.url.toString();
+        let isAllowedToEnter = true;
 
         this.userService.getOwnUser().subscribe(
             (user) => {

@@ -6,15 +6,7 @@ export class Bonus {
         public value: number | string,
         public year: number | string,
         public sid?: number | string,
-        private _remark?: string,
+        public remark?: string,
         public verified?: boolean,
     ) {}
-
-    get remark(): string {
-        return this._remark;
-    }
-
-    set remark(value: string) {
-        this._remark = value;
-    }
 }

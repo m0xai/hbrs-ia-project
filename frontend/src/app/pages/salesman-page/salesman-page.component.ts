@@ -53,14 +53,14 @@ export class SalesmanPageComponent implements OnInit {
         this.service.getSalesman(id).subscribe((data) => {
             const { firstname, lastname, employeeid, unit, governmentid } =
                 data;
-            data['unit'] === 'Sales'
+            data.unit === 'Sales'
                 ? ELEMENT_DATA.push({
-                      firstname,
-                      lastname,
-                      employeeid,
-                      unit,
-                      governmentid,
-                  })
+                    firstname,
+                    lastname,
+                    employeeid,
+                    unit,
+                    governmentid,
+                })
                 : null;
             this.dataSource = new MatTableDataSource<Salesman>(ELEMENT_DATA);
         });
@@ -92,7 +92,7 @@ export class SalesmanPageComponent implements OnInit {
     }
 
     showSalesmenWithoutBonuses(): void {
-        let salesmenWithBonuses = [];
+        const salesmenWithBonuses = [];
         ELEMENT_DATA = []; // Empty the table
 
         for (const info of this.salesmen) {
@@ -104,9 +104,7 @@ export class SalesmanPageComponent implements OnInit {
             }
         }
 
-        ELEMENT_DATA = this.salesmen.filter((salesman) => {
-            return !salesmenWithBonuses.includes(salesman);
-        });
+        ELEMENT_DATA = this.salesmen.filter((salesman) => !salesmenWithBonuses.includes(salesman));
 
         this.dataSource = new MatTableDataSource<Salesman>(ELEMENT_DATA);
     }
@@ -132,9 +130,7 @@ export class SalesmanPageComponent implements OnInit {
     private fetchBonusData() {
         this.bonusService.getAllBonuses().subscribe(
             (bonuses: Bonus[]) => {
-                this.bonuses = bonuses.filter((bonus) => {
-                    return bonus.verified;
-                });
+                this.bonuses = bonuses.filter((bonus) => bonus.verified);
             },
             () => {},
             () => {

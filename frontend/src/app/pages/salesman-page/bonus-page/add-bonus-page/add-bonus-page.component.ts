@@ -20,7 +20,7 @@ export class AddBonusPageComponent implements OnInit {
     salesman: Salesman;
     interval: number[];
     year: number;
-    readonly: boolean = true;
+    readonly = true;
     categories: string[] = [
         'Leadership Competence',
         'Openness to Employee',
@@ -63,9 +63,9 @@ export class AddBonusPageComponent implements OnInit {
     }
 
     getCustomerByCustomerID(customerUID: string): any {
-        let value = undefined;
+        let value;
         this.customersData.forEach((val) => {
-            if (val.uid === customerUID) value = val;
+            if (val.uid === customerUID) {value = val; }
         });
 
         return value;
@@ -76,44 +76,44 @@ export class AddBonusPageComponent implements OnInit {
     }
 
     getRankingByCustomerID(uid: string) {
-        let customer = this.getCustomerByCustomerID(uid);
+        const customer = this.getCustomerByCustomerID(uid);
         let value;
 
         switch (customer?.accountRating) {
-            case 1:
-                value = 'excellent';
-                break;
-            case 2:
-                value = 'very good';
-                break;
-            case 3:
-                value = 'good';
-                break;
-            default:
-                value = 'No rating available!';
-                break;
+        case 1:
+            value = 'excellent';
+            break;
+        case 2:
+            value = 'very good';
+            break;
+        case 3:
+            value = 'good';
+            break;
+        default:
+            value = 'No rating available!';
+            break;
         }
 
         return value;
     }
 
     getBonusmultiplikator(uid: string) {
-        let customer = this.getCustomerByCustomerID(uid);
+        const customer = this.getCustomerByCustomerID(uid);
         let value;
 
         switch (customer?.accountRating) {
-            case 1:
-                value = 0.09;
-                break;
-            case 2:
-                value = 0.06;
-                break;
-            case 3:
-                value = 0.03;
-                break;
-            default:
-                value = 1;
-                break;
+        case 1:
+            value = 0.09;
+            break;
+        case 2:
+            value = 0.06;
+            break;
+        case 3:
+            value = 0.03;
+            break;
+        default:
+            value = 1;
+            break;
         }
 
         return value;
@@ -138,7 +138,7 @@ export class AddBonusPageComponent implements OnInit {
         } else if (targetValue - actualValue == 1) {
             bonus = 20;
         } else {
-            //if target+actual>1
+            // if target+actual>1
             bonus = 0;
         }
 
@@ -148,7 +148,7 @@ export class AddBonusPageComponent implements OnInit {
     calculateTotalOrderBonus() {
         let totalBonus = 0;
 
-        for (let element of document
+        for (const element of document
             .getElementsByClassName('orderBonus')
             [Symbol.iterator]()) {
             totalBonus += parseFloat(element.value);
@@ -160,7 +160,7 @@ export class AddBonusPageComponent implements OnInit {
     calculateTotalPerformanceBonus() {
         let totalBonus = 0;
 
-        for (let element of document
+        for (const element of document
             .getElementsByClassName('performanceBonus')
             [Symbol.iterator]()) {
             totalBonus += parseFloat(element.value);
@@ -171,7 +171,7 @@ export class AddBonusPageComponent implements OnInit {
 
     calculateTotalBonusSum() {
         let totalBonusSum = 0;
-        for (let element of document
+        for (const element of document
             .getElementsByClassName('totalBonus')
             [Symbol.iterator]()) {
             totalBonusSum += parseFloat(element.value);
@@ -180,17 +180,15 @@ export class AddBonusPageComponent implements OnInit {
     }
 
     showMissingCategories() {
-        let descriptions = [];
+        const descriptions = [];
 
-        for (let performanceRecord of this.performanceRecordsOfSalesman) {
+        for (const performanceRecord of this.performanceRecordsOfSalesman) {
             if (performanceRecord.year == this.year) {
                 descriptions.push(performanceRecord.description);
             }
         }
 
-        let missingCategories = this.categories.filter((value) => {
-            return !descriptions.includes(value);
-        });
+        const missingCategories = this.categories.filter((value) => !descriptions.includes(value));
 
         return missingCategories.length ? missingCategories.toString() : 'none';
     }
@@ -225,8 +223,8 @@ export class AddBonusPageComponent implements OnInit {
     }
 
     private getYearsOfPerformance(): void {
-        let current = this.date.getFullYear();
-        let years = [];
+        const current = this.date.getFullYear();
+        const years = [];
 
         for (let i = 0; i < 5; i++) {
             years.push(current - i);
