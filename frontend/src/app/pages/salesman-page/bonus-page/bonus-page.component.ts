@@ -15,20 +15,20 @@ let ELEMENT_DATA: Bonus[];
     providers: [BonusService, OpenCRXService],
 })
 export class BonusPageComponent implements OnInit {
-    products: object;
+    products: any;
 
     bonuses: Bonus[];
-    salesOrders: object[];
-    salesOrdersData: object[] = [];
+    salesOrders: any;
+    salesOrdersData: any[] = [];
 
     salesman: Salesman;
-    displayedColumns: string[] = ['year', 'value', 'delete'];
+    displayedColumns: any[] = ['year', 'value', 'delete'];
     dataSource: MatTableDataSource<Bonus> = new MatTableDataSource(
         ELEMENT_DATA,
     );
-    private salesmanAccount: object;
-    private button: HTMLElement;
-    private loadingInfo: HTMLElement;
+    private salesmanAccount: any;
+    private button: any;
+    private loadingInfo: any;
 
     constructor(
         private serviceBonus: BonusService,
@@ -52,7 +52,7 @@ export class BonusPageComponent implements OnInit {
         employeeid: string | number,
         year: string | number,
         value: string | number,
-    ): void {
+    ) {
         this.serviceBonus
             .deleteBonusOfSalesmanFromOrangeHRM(employeeid, year, value)
             .subscribe(
@@ -64,7 +64,7 @@ export class BonusPageComponent implements OnInit {
             );
     }
 
-    private getLoadingInfo(): void {
+    private getLoadingInfo() {
         this.loadingInfo.innerHTML = this.button.hasAttribute('disabled')
             ? '<i>  loading data...</i>'
             : '<i>  data loaded ✅</i>';
@@ -73,12 +73,12 @@ export class BonusPageComponent implements OnInit {
     private fetchVerifiedBonusData(id: string | number): void {
         // Fetch the bonus salary
         this.serviceBonus.getBonusesOfSalesman(id).subscribe(
-            (data): void => {
+            (data) => {
                 ELEMENT_DATA = data;
                 this.dataSource = new MatTableDataSource<Bonus>(ELEMENT_DATA);
             },
-            (): void => {},
-            (): void => {
+            () => {},
+            () => {
                 this.fetchUnverifiedAndVerifiedBonusData();
             },
         );
@@ -87,23 +87,23 @@ export class BonusPageComponent implements OnInit {
     private fetchUnverifiedAndVerifiedBonusData(): void {
         this.serviceBonus
             .getVerifiedAndUnverifiedBonusesOfSalesman(this.salesman.employeeid)
-            .subscribe((data): void => {
+            .subscribe((data) => {
                 this.bonuses = data;
             });
     }
 
-    private getProducts(): void {
+    private getProducts() {
         this.serviceOpenCRX.listProducts().subscribe((data) => {
             this.products = data;
         });
     }
 
     // 1. First collect data from Salesman
-    private async collectDataFromSalesman(): Promise<void> {
+    private async collectDataFromSalesman() {
         this.serviceOpenCRX.listAccounts().subscribe(
-            (data): void => {
+            (data) => {
                 this.salesmanAccount = data[0].filter(
-                    (value): boolean =>
+                    (value) =>
                         value.governmentId === this.salesman.governmentid,
                 )[0];
                 console.log('SA: ', this.salesmanAccount);
@@ -122,18 +122,18 @@ export class BonusPageComponent implements OnInit {
     }
 
     // 2. Then collect data about contracts of salesman
-    private async getContractsFromSalesman(): Promise<void> {
+    private async getContractsFromSalesman() {
         this.serviceOpenCRX
             .getSalesmanContracts(this.salesmanAccount.uid)
             .subscribe(
-                (data): void => {
+                (data) => {
                     console.log('SO: ', data);
                     this.salesOrders = data;
                 },
-                (): void => {
+                () => {
                     this.setInfoForNoData();
                 },
-                (): void => {
+                () => {
                     if (this.salesOrders) {
                         this.getSpecificDetailsOfSalesOrders(this.salesOrders);
                     } else {
@@ -144,7 +144,7 @@ export class BonusPageComponent implements OnInit {
     }
 
     // 3. Then collect specific data of each sales order
-    private getSpecificDetailsOfSalesOrders(salesOrders, i: number = 0): void {
+    private getSpecificDetailsOfSalesOrders(salesOrders, i: number = 0) {
         if (i >= this.salesOrders.length) {
             this.getPositionOfSalesOrder(this.salesOrdersData);
             return;
@@ -153,13 +153,13 @@ export class BonusPageComponent implements OnInit {
         this.serviceOpenCRX
             .getSalesOrderData(salesOrders[i].contractID)
             .subscribe(
-                (data): void => {
+                (data) => {
                     this.salesOrdersData.push(data);
                 },
-                (): void => {
+                () => {
                     this.setInfoForNoData();
                 },
-                (): void => {
+                () => {
                     this.getSpecificDetailsOfSalesOrders(salesOrders, i + 1);
                 },
             );
@@ -170,7 +170,7 @@ export class BonusPageComponent implements OnInit {
     // The recursive calls allow us to fetch the data one by one from OpenCRX.
 
     // 4. Then collect data about the products of each sales order
-    private getPositionOfSalesOrder(salesOrdersData, i: number = 0): void {
+    private getPositionOfSalesOrder(salesOrdersData, i: number = 0) {
         if (i >= this.salesOrdersData.length) {
             /** The End ↓ */
             this.setButtonAttribute();
@@ -181,7 +181,7 @@ export class BonusPageComponent implements OnInit {
         this.serviceOpenCRX
             .getSalesOrderPosition(salesOrdersData[i][0].contractID)
             .subscribe(
-                (data): void => {
+                (data) => {
                     // @ts-ignore
                     let data_: any[] = data;
 
@@ -190,6 +190,7 @@ export class BonusPageComponent implements OnInit {
                     // If [{A},{B}] then [{A},{B}]
                     // If [] then [{},{}]
                     for (const [index, product] of this.products.entries()) {
+                        // @ts-ignore
                         if (
                             !data_[index] ||
                             product.productID !== data_[index]?.productID
@@ -218,7 +219,7 @@ export class BonusPageComponent implements OnInit {
     }
 
     // Some CSS Styling for "Add Bonus"-Button
-    private setButtonAttribute(): void {
+    private setButtonAttribute() {
         this.button.removeAttribute('disabled');
         this.button.style.color = '#fff';
         this.button.style.cursor = 'pointer';
@@ -227,7 +228,7 @@ export class BonusPageComponent implements OnInit {
     private deleteBonusOfSalesmanFromMongoDB(
         employeeid: string | number,
         year: string | number,
-    ): void {
+    ) {
         this.serviceBonus
             .deleteBonusOfSalesmanFromMongoDB(employeeid, year)
             .subscribe(
@@ -242,7 +243,7 @@ export class BonusPageComponent implements OnInit {
             );
     }
 
-    private setInfoForNoData(): void {
+    private setInfoForNoData() {
         this.loadingInfo.innerHTML = '<i>  No data available! ❌</i>';
         this.button.style.cursor = 'no-drop';
     }
