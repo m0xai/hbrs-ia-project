@@ -7,6 +7,14 @@ import { OpenCRXService } from '../../../../services/orders/orders.service';
 import { PerformanceRecordService } from '../../../../services/record/performance-record.service';
 import { BonusService } from '../../../../services/bonus/bonus.service';
 
+interface CustomizedState {
+    salesman: Salesman;
+    bonuses: Bonus[];
+    orders: object[];
+    products: object[];
+    salesOrders: object[];
+}
+
 @Component({
     selector: 'app-add-bonus-page',
     templateUrl: './add-bonus-page.component.html',
@@ -14,9 +22,9 @@ import { BonusService } from '../../../../services/bonus/bonus.service';
     providers: [OpenCRXService, PerformanceRecordService, BonusService],
 })
 export class AddBonusPageComponent implements OnInit {
-    products: any;
-    salesOrders: any;
-    customersData: any[] = [];
+    products: object[];
+    salesOrders: object[];
+    customersData: object[] = [];
     salesman: Salesman;
     interval: number[];
     year: number;
@@ -32,6 +40,7 @@ export class AddBonusPageComponent implements OnInit {
     performanceRecordsOfSalesman: PerformanceRecord[];
     private date: Date;
     private bonuses: Bonus[];
+    private state: CustomizedState;
 
     constructor(
         private serviceOpenCRX: OpenCRXService,
@@ -41,10 +50,11 @@ export class AddBonusPageComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.salesman = history.state.salesman;
-        this.bonuses = history.state.bonuses;
-        this.salesOrders = history.state.salesOrders;
-        this.products = history.state.products;
+        this.state = history.state as CustomizedState;
+        this.salesman = this.state.salesman;
+        this.bonuses = this.state.bonuses;
+        this.salesOrders = this.state.salesOrders;
+        this.products = this.state.products;
 
         this.getDataOfCustomers();
         this.getPerformanceRecordOfSalesman();
@@ -62,22 +72,24 @@ export class AddBonusPageComponent implements OnInit {
         console.log(this.salesOrders);
     }
 
-    getCustomerByCustomerID(customerUID: string): any {
+    getCustomerByCustomerID(customerUID: string): { accountRating: number } {
         let value;
-        this.customersData.forEach((val) => {
-            if (val.uid === customerUID) {value = val; }
+        this.customersData.forEach((val): void => {
+            if (val.uid === customerUID) {
+                value = val;
+            }
         });
 
         return value;
     }
 
     getNameByCustomerID(customerUID: string): string {
-        return this.getCustomerByCustomerID(customerUID).fullName;
+        return this.getCustomerByCustomerID(customerUID).fullName as string;
     }
 
-    getRankingByCustomerID(uid: string) {
+    getRankingByCustomerID(uid: string): string {
         const customer = this.getCustomerByCustomerID(uid);
-        let value;
+        let value: string;
 
         switch (customer?.accountRating) {
             case 1:
@@ -97,9 +109,9 @@ export class AddBonusPageComponent implements OnInit {
         return value;
     }
 
-    getBonusmultiplikator(uid: string) {
+    getBonusmultiplikator(uid: string): number {
         const customer = this.getCustomerByCustomerID(uid);
-        let value;
+        let value: number;
 
         switch (customer?.accountRating) {
             case 1:
@@ -122,14 +134,17 @@ export class AddBonusPageComponent implements OnInit {
     /** Calculation methods ↓ */
 
     calculateOrderBonus(
-        pricePerUnit: any,
-        quantity: any,
-        bonusmultiplikator: any,
+        pricePerUnit: number,
+        quantity: number,
+        bonusmultiplikator: number,
     ) {
         return pricePerUnit * quantity * bonusmultiplikator;
     }
 
-    calculatePerformanceBonus(targetValue: any, actualValue: any) {
+    calculatePerformanceBonus(
+        targetValue: number,
+        actualValue: number,
+    ): number {
         let bonus = 0;
         if (targetValue < actualValue) {
             bonus = 100;
@@ -145,7 +160,7 @@ export class AddBonusPageComponent implements OnInit {
         return bonus;
     }
 
-    calculateTotalOrderBonus() {
+    calculateTotalOrderBonus(): number {
         let totalBonus = 0;
 
         for (const element of document
@@ -157,7 +172,7 @@ export class AddBonusPageComponent implements OnInit {
         return totalBonus;
     }
 
-    calculateTotalPerformanceBonus() {
+    calculateTotalPerformanceBonus(): number {
         let totalBonus = 0;
 
         for (const element of document
@@ -169,7 +184,7 @@ export class AddBonusPageComponent implements OnInit {
         return totalBonus;
     }
 
-    calculateTotalBonusSum() {
+    calculateTotalBonusSum(): number {
         let totalBonusSum = 0;
         for (const element of document
             .getElementsByClassName('totalBonus')
@@ -179,8 +194,8 @@ export class AddBonusPageComponent implements OnInit {
         return totalBonusSum;
     }
 
-    showMissingCategories() {
-        const descriptions = [];
+    showMissingCategories(): string {
+        const descriptions: string[] = [];
 
         for (const performanceRecord of this.performanceRecordsOfSalesman) {
             if (performanceRecord.year == this.year) {
@@ -188,12 +203,14 @@ export class AddBonusPageComponent implements OnInit {
             }
         }
 
-        const missingCategories = this.categories.filter((value) => !descriptions.includes(value));
+        const missingCategories: string[] = this.categories.filter(
+            (value) => !descriptions.includes(value),
+        );
 
         return missingCategories.length ? missingCategories.toString() : 'none';
     }
 
-    sendBonusRequest() {
+    sendBonusRequest(): void {
         this.serviceBonus
             .postUnverifiedBonusSalary({
                 sid: this.salesman.employeeid,
@@ -233,18 +250,20 @@ export class AddBonusPageComponent implements OnInit {
         this.interval = years;
     }
 
-    private getDataOfCustomers() {
-        this.serviceOpenCRX.listCustomers().subscribe((data) => {
-            this.customersData = data;
-            console.log('Alle CustomerData:');
-            console.log(data);
-        });
+    private getDataOfCustomers(): void {
+        this.serviceOpenCRX
+            .listCustomers()
+            .subscribe((data: object[]): void => {
+                this.customersData = data;
+                console.log('Alle CustomerData:');
+                console.log(data);
+            });
     }
 
-    private getPerformanceRecordOfSalesman() {
+    private getPerformanceRecordOfSalesman(): void {
         this.servicePerformanceRecord
             .getPerformanceRecords(this.salesman.governmentid)
-            .subscribe((data) => {
+            .subscribe((data): void => {
                 this.performanceRecordsOfSalesman = data;
             });
     }
