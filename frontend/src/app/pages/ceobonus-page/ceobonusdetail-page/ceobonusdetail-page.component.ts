@@ -29,33 +29,36 @@ export class CeoBonusDetailComponent implements OnInit {
         console.log(this.user);
     }
 
-    deleteUnverifiedBonus() {
+    deleteUnverifiedBonus(): void {
         this.bonusService
             .deleteBonusOfSalesmanFromMongoDB(this.bonus.sid, this.bonus.year)
             .subscribe(
-                () => {},
-                () => {},
-                () => {
-                    this.router.navigateByUrl('ceobonus').then(() => {
+                (): void => {},
+                (): void => {},
+                (): void => {
+                    this.router.navigateByUrl('ceobonus').then((): void => {
                         alert(
-                            `The bonus of ${this.salesman.firstname} ${this.salesman.lastname} for ${this.bonus.year} has been deleted successfully!`,
+                            `The bonus of ${this.salesman.firstname} ${this.salesman.lastname}
+                            for ${this.bonus.year} has been deleted successfully!`,
                         );
                     });
                 },
             );
     }
 
-    verifyAndSaveBonus() {
-        // @ts-ignore
-        this.bonus.remark = document.getElementById('remark-textfield').value;
+    verifyAndSaveBonus(): void {
+        this.bonus.remark = (<HTMLInputElement>(
+            document.getElementById('remark-textfield')
+        )).value;
 
         this.bonusService.postVerifiedBonusSalary(this.bonus).subscribe(
-            () => {},
-            () => {},
-            () => {
-                this.router.navigateByUrl('ceobonus').then(() => {
+            (): void => {},
+            (): void => {},
+            (): void => {
+                this.router.navigateByUrl('ceobonus').then((): void => {
                     alert(
-                        `The bonus of ${this.salesman.firstname} ${this.salesman.lastname} for ${this.bonus.year} has been verified successfully!`,
+                        `The bonus of ${this.salesman.firstname} ${this.salesman.lastname}
+                        for ${this.bonus.year} has been verified successfully!`,
                     );
                 });
             },

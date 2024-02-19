@@ -44,7 +44,7 @@
     </div>
 
 
-    <ng-container *ngIf='year != undefined || year != null'>
+    <ng-container *ngIf='year !== undefined || year !== null'>
         <!-- Orders Evaluation -->
         <div class='area' id='second-area'>
             <h2>Orders Evaluation</h2>
@@ -52,7 +52,8 @@
                 <p><b>Name of product: </b>{{ product.name }}</p>
                 <ng-container *ngFor='let salesOrder of salesOrders'>
                     <div
-                        *ngIf="salesOrder[1][i] && salesOrder[1][i].productID === product.productID && year == salesOrder[0]['createdAt']">
+                        *ngIf="salesOrder[1][i] && salesOrder[1][i].productID === product.productID && year ===
+                        salesOrder[0]['createdAt']">
                         <mat-form-field>
                             <mat-label>Client</mat-label>
                             <input [disabled]='readonly' matInput type='text'
@@ -83,7 +84,8 @@
                             <mat-icon matSuffix>euro</mat-icon>
                         </mat-form-field>
                     </div>
-                    <br *ngIf="salesOrder[1][i] && salesOrder[1][i].productID === product.productID && year == salesOrder[0]['createdAt']">
+                    <br *ngIf="salesOrder[1][i] && salesOrder[1][i].productID === product.productID && year ===
+                    salesOrder[0]['createdAt']">
                 </ng-container>
             </ng-form>
             <div>
@@ -101,7 +103,7 @@
         <div class='area' id='third-area'>
             <h2>Social Performance Evaluation</h2>
             <ng-form *ngFor='let performanceRecord of performanceRecordsOfSalesman'>
-                <div *ngIf='performanceRecord.year == year' class='info_area'>
+                <div *ngIf='performanceRecord.year === year' class='info_area'>
                     <h4>{{ performanceRecord.description }}</h4>
                     <mat-form-field>
                         <mat-label>Target Value</mat-label>

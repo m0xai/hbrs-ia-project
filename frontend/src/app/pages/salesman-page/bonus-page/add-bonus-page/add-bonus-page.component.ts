@@ -80,18 +80,18 @@ export class AddBonusPageComponent implements OnInit {
         let value;
 
         switch (customer?.accountRating) {
-        case 1:
-            value = 'excellent';
-            break;
-        case 2:
-            value = 'very good';
-            break;
-        case 3:
-            value = 'good';
-            break;
-        default:
-            value = 'No rating available!';
-            break;
+            case 1:
+                value = 'excellent';
+                break;
+            case 2:
+                value = 'very good';
+                break;
+            case 3:
+                value = 'good';
+                break;
+            default:
+                value = 'No rating available!';
+                break;
         }
 
         return value;
@@ -102,18 +102,18 @@ export class AddBonusPageComponent implements OnInit {
         let value;
 
         switch (customer?.accountRating) {
-        case 1:
-            value = 0.09;
-            break;
-        case 2:
-            value = 0.06;
-            break;
-        case 3:
-            value = 0.03;
-            break;
-        default:
-            value = 1;
-            break;
+            case 1:
+                value = 0.09;
+                break;
+            case 2:
+                value = 0.06;
+                break;
+            case 3:
+                value = 0.03;
+                break;
+            default:
+                value = 1;
+                break;
         }
 
         return value;
