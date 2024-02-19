@@ -18,9 +18,7 @@ import { MenuBarComponent } from './components/menu-bar/menu-bar.component';
 import { ExamplePageComponent } from './pages/example-page/example-page.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { MatTableModule } from '@angular/material/table';
-import { EmployeeListPageComponent } from './pages/employee-list-page/employee-list-page.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
-import { EmployeeDetailsComponent } from './pages/employee-details/employee-details.component';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BonusCalculatorPageComponent } from './pages/bonus-calculator-page/bonus-calculator-page.component';
@@ -43,8 +41,6 @@ import { MatListModule } from '@angular/material/list';
         MenuBarComponent,
         ExamplePageComponent,
         NotFoundPageComponent,
-        EmployeeListPageComponent,
-        EmployeeDetailsComponent,
         BonusCalculatorPageComponent,
         SalesmanPageComponent,
         CeoBonusComponent,
