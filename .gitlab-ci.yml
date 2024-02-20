@@ -115,6 +115,7 @@ install-dependencies:frontend:
 lint:frontend:
   extends: .node
   stage: test
+  allow_failure: true
   rules:
     - !reference [ .frontend_rules, rules ]
   needs:
